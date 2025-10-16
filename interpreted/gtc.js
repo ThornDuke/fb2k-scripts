@@ -18,7 +18,7 @@
  * Open Lyrics must be configured to save to a tag the lyrics found
  * 
  * Author: Thorn Duke
- * Version: 1.1.0
+ * Version: 1.1.1
  * Creation Date: 2025-10-15
  */
 
