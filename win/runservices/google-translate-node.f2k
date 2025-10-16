@@ -2,9 +2,10 @@
 //
 //   Google Translate with Node
 // 
-// Prende alcuni tag, li unisce con un separatore, e li manda come
-// un unico parametro ad uno script Node.js. I tag contenenti il testo
-// della traccia sono prodotti dal plugin Open Lyrics.
+// Prende alcuni tag e li manda come un unico parametro ad uno script
+// Node.js che si occupa poi di 'spacchettarli' e mandarli
+// eventualmente a Google Translate. I tag contenenti il testo
+// della traccia sono prodotti dal componente Open Lyrics.
 //
 // Author:   Thorn Duke
 // Version:  1.1.1

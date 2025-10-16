@@ -5,9 +5,9 @@
  * Node.js script to send the lyrics of a track to Google Translate
  * and get a translation.
  * 1. an f2k script collects the tags %title%, %artist%, %album% and one of
- * several tags that contain text and passes them as a single parameter split
- * by a splitter to this script;
- * 2. Tags are detected here
+ * several tags that contain text and passes them as a single parameter to
+ * this script;
+ * 2. Tags are detected and splitted here
  * 3. if there is no text, it is communicated to the user by opening a page
  * html and the script stops
  * 4. if there is a text it is sent to Google Translate and the page is shown
@@ -22,11 +22,9 @@
  * Creation Date: 2025-10-15
  */
 
-const { exec } = require('node:child_process');
+const { exec, spawn } = require('node:child_process');
 const { browseAlert } = require('./helper/browsealert')
 const { labels } = require('./helper/labels')
-const { logToFile } = require('./helper/logToFile')
-
 
 function getAlertParam(title, artist, album, message) {
   return {
@@ -51,11 +49,6 @@ function getTagsContent(blob) {
   const artistBunch = getSection(blob, 'artist')
   const albumBunch = getSection(blob, 'album')
   const lyricsBunch = getSection(blob, 'lyrics')
-  logToFile(`blob: ${blob}`)
-  logToFile(`title: ${titleBunch}`)
-  logToFile(`artist: ${artistBunch}`)
-  logToFile(`album: ${albumBunch}`)
-  logToFile(`lyrics: ${lyricsBunch}`)
 
   const result = {
     titolo: titleBunch,
@@ -90,6 +83,7 @@ if (processedLines.length === 0) {
   browseAlert(getAlertParam(titolo, artista, album, labels.html.noValidLines))
   process.exit(1);
 }
+
 if (processedLines[0].toLowerCase() === '[instrumental]') {
   browseAlert(getAlertParam(titolo, artista, album, labels.html.instrumentalTrack))
   process.exit(1);
