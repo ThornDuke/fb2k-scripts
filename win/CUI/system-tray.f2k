@@ -1,0 +1,156 @@
+//section> frontmatter ===============================================
+//
+//   System Tray
+// 
+// The content of the notification area icon tooltip
+// during playback in ColumnsUI.
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-10-06
+//
+//endsection> frontmatter ============================================
+//section> normalization
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  TITLE,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST,
+  $if(
+    %artist%,
+    $stripprefix(
+      $trim(%artist%),
+      'The'
+    ),
+    $get(null)
+  )
+)
+$puts(
+  ALBUM,
+  $if(
+    %album%,
+    $trim(%album%),
+    $get(null)
+  )
+)
+//endsection> normalization
+//section> composition
+// -------------------------------------------------------------------
+//
+//   Composizione dei pezzi
+//
+// -------------------------------------------------------------------
+$puts(
+  TITLE_COND,
+  $if(
+    $and(
+      $get(TITLE),
+      $not($get(ARTIST)),
+      $not($get(ALBUM))
+    ),
+    $get(TITLE),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST_COND,
+  $if(
+    $and(
+      $not($get(TITLE)),
+      $get(ARTIST),
+      $not($get(ALBUM))
+    ),
+    $get(ARTIST),
+    $get(null)
+  )
+)
+$puts(
+  ALBUM_COND,
+  $if(
+    $and(
+      $not($get(TITLE)),
+      $not($get(ARTIST)),
+      $get(ALBUM)
+    ),
+    $get(ALBUM),
+    $get(null)
+  )
+)
+$puts(
+  TITLE_ARTIST_COND,
+  $if(
+    $and(
+      $get(TITLE),
+      $get(ARTIST),
+      $not($get(ALBUM))
+    ),
+    $get(TITLE)$crlf()$get(ARTIST),
+    $get(null)
+  )
+)
+$puts(
+  TITLE_ALBUM_COND,
+  $if(
+    $and(
+      $get(TITLE),
+      $not($get(ARTIST)),
+      $get(ALBUM)
+    ),
+    $get(TITLE)$crlf()$get(ALBUM),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST_ALBUM_COND,
+  $if(
+    $and(
+      $not($get(TITLE)),
+      $get(ARTIST),
+      $get(ALBUM)
+    ),
+    $get(ARTIST)$crlf()$get(ALBUM),
+    $get(null)
+  )
+)
+$puts(
+  TITLE_ARTIST_ALBUM_COND,
+  $if(
+    $and(
+      $get(TITLE),
+      $get(ARTIST),
+      $get(ALBUM)
+    ),
+    $get(TITLE)$crlf()$get(ARTIST)$crlf()$get(ALBUM),
+    $get(null)
+  )
+)
+$puts(
+  FINAL_LINE,
+  $get(TITLE_COND)
+  $get(ARTIST_COND)
+  $get(ALBUM_COND)
+  $get(TITLE_ARTIST_COND)
+  $get(TITLE_ALBUM_COND)
+  $get(ARTIST_ALBUM_COND)
+  $get(TITLE_ARTIST_ALBUM_COND)
+)
+//endsection> composition
+//section> body
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(FINAL_LINE)
+//endsection> body
+

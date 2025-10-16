@@ -1,0 +1,666 @@
+//section> frontmatter ===============================================
+//
+//   Item Details (playing)
+// 
+// Needs the fonts:
+//   - Segoe UI
+//   - BabelStone Pseudographica
+//
+// Author:   Thorn Duke
+// Version:  1.0.5
+// Date:     2025-09-23
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  true,
+  'true'
+)
+$puts(
+  false,
+  $get(null)
+)
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  comma,
+  ','
+)
+$puts(
+  endash,
+  '━'
+)
+$puts(
+  ellipsis,
+  '…'
+)
+$puts(
+  openParen,
+  '('
+)
+$puts(
+  closeParen,
+  ')'
+)
+$puts(
+  blackStar,
+  $char(9734)
+)
+$puts(
+  whiteStar,
+  $char(9733)
+)
+$puts(
+  halfStar,
+  $char(11243)
+)
+$puts(
+  dangerChar,
+  '☣'
+)
+$puts(
+  radioIcon,
+  '📻'
+)
+$puts(
+  starsLineLength,
+  5
+)
+$puts(
+  borderLineLength,
+  7
+)
+//endsection> atoms
+//section> fonts
+// -------------------------------------------------------------------
+//
+//   Fonts
+//
+// -------------------------------------------------------------------
+$puts(
+  defaultfont,
+  $set_format(
+    font-family: Segoe UI;
+    font-size: 8;
+    font-weight: 400;
+    font-stretch: 5;
+    font-style: normal;
+  )
+)
+$puts(
+  fontBold,
+  $set_format(font-weight: 700;)
+)
+$puts(
+  fontNotBold,
+  $set_format(font-weight: 400;)
+)
+$puts(
+  font8,
+  $set_format(
+    font-size: 8;
+    font-weight: 400;
+  )
+)
+$puts(
+  font9b,
+  $set_format(
+    font-size: 9;
+    font-weight: 700;
+  )
+)
+$puts(
+  font13,
+  $set_format(
+    font-size: 13;
+    font-weight: 400;
+  )
+)
+$puts(
+  font21,
+  $set_format(
+    font-size: 21;
+    font-weight: 400;
+  )
+)
+$puts(
+  font21b,
+  $set_format(
+    font-size: 21;
+    font-weight: 700;
+  )
+)
+$puts(
+  fontRadio,
+  $set_format(
+    font-size: 55;
+    font-weight: 400;
+  )
+)
+$puts(
+  fontStars,
+  $set_format(
+    font-family: BabelStone Pseudographica;
+    font-size: 21;
+    font-weight: 400;
+    font-stretch: 5;
+    font-style: normal;
+  )
+)
+//endsection> fonts
+//section> colors
+// -------------------------------------------------------------------
+//
+//   Colors
+//
+// -------------------------------------------------------------------
+$puts(
+  color_red,
+  $rgb(
+    255,0,0,
+    255,0,0
+  )
+)
+$puts(
+  color_white,
+  $rgb(
+    255,255,255,
+    255,255,255
+  )
+)
+$puts(
+  color_dark_rose,
+  $rgb(
+    255,0,128,
+    255,0,128
+  )
+)
+$puts(
+  color_light_rose,
+  $rgb(
+    255,128,191,
+    255,128,191
+  )
+)
+$puts(
+  color_deep_rose,
+  $rgb(
+    221,0,112,
+    221,0,112
+  )
+)
+$puts(
+  color_light_grey,
+  $rgb(
+    207,207,207,
+    207,207,207
+  )
+)
+$puts(
+  color_deep_yellow,
+  $rgb(
+    255,223,0,
+    255,223,0
+  )
+)
+//endsection> colors
+//section> themes
+// -------------------------------------------------------------------
+//
+//   Definizione del tema colore
+//
+// -------------------------------------------------------------------
+$puts(
+  color_main,
+  $get(color_white)
+)
+$puts(
+  color_main_light,
+  $get(color_light_grey)
+)
+$puts(
+  color_stars,
+  $get(color_white)
+)
+$puts(
+  color_red_stars,
+  $get(color_red)
+)
+//endsection> themes
+//section> radio
+// -------------------------------------------------------------------
+//
+//   Radio stream
+//
+// -------------------------------------------------------------------
+$puts(
+  isHttp,
+  $ifequal(
+    $strstr(
+      $lower(%_path_raw%),
+      'http://'
+    ),
+    1,
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  isHttps,
+  $ifequal(
+    $strstr(
+      $lower(%_path_raw%),
+      'https://'
+    ),
+    1,
+    $get(true),
+    $get(false)
+  )
+)
+//---
+// @costant:
+//   isRadioStream
+// @description:
+//   Restituisce un valore 'truey' se la traccia in esecuzione proviene
+//   da uno stream internet; altrimenti restituisce un valore 'falsy'.
+//   Va usato in una istruzione `$if()`, `$or()`, ecc.
+// @example:
+//   $if($get(isRadioStram),%radio_title%,%title%)
+//---
+$puts(
+  isRadioStream,
+  $if(
+    $or(
+      $get(isHttp),
+      $get(isHttps)
+    ),
+    $get(true),
+    $get(false)
+  )
+)
+//endsection> radio
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Molecole
+//
+// -------------------------------------------------------------------
+$puts(
+    borderLine,
+    $get(font9b)
+    $repeat(
+      $get(endash),
+      $get(borderLineLength)
+    )
+    $get(defaultfont)
+  )
+//section> radio
+// -------------------------------------------------------------------
+//
+//   radio streams
+//
+// -------------------------------------------------------------------
+$puts(
+  radioStreamIcon,
+  $get(fontRadio)$get(radioIcon)$get(defaultfont)
+)
+$puts(
+  radioStreamArtist,
+  $if(
+    %album artist%,
+    $crlf()
+    $get(font13)%album artist%$get(defaultfont),
+    $get(null)
+  )
+)
+$puts(
+  radioStreamTitle,
+  $if(
+    %title%,
+    $crlf()
+    $get(font21b)%title%$get(defaultfont),
+    $get(null)
+  )
+)
+$puts(
+  radioStreamGenre,
+  $if(
+    %genre%,
+    $crlf()
+    $get(localBorderLine)
+    $crlf()
+    $get(font8)%genre%$get(defaultfont)
+    $crlf()
+    $get(localBorderLine),
+    $get(null)
+  )
+)
+//endsection> radio
+//section> local files
+// -------------------------------------------------------------------
+//
+//   File locali
+//
+// -------------------------------------------------------------------
+$puts(
+  artist,
+  $if(
+    %album artist%,
+    $get(font13)%album artist%$get(defaultfont),
+    $get(null)
+  )
+)
+$puts(
+  maxTitleLength,
+  $if(
+    %track artist%,
+    19,
+    35
+  )
+)
+$puts(
+  maxAlbumLength,
+  65
+)
+$puts(
+  title,
+  $crlf()
+  $get(font21b)
+  $iflonger( 
+    %title%,
+    $get(maxTitleLength),
+    $cut(
+      %title%,
+      $get(maxTitleLength)
+    )
+    $get(ellipsis),
+    %title%
+  )
+  $get(defaultfont)
+)
+$puts(
+  trackArtist,
+  $if(
+    %track artist%,
+    $crlf()
+    $get(font8)$get(openParen)%track artist%$get(closeParen)$get(defaultfont),
+    $get(null)
+  )
+)
+$puts(
+  album,
+  $crlf()
+  $get(font13)
+  $iflonger(
+    %album%,
+    $get(maxAlbumLength),
+    $cut(
+      %album%,
+      $get(maxAlbumLength)
+    )
+    $get(ellipsis),
+    %album%
+  )
+  $get(defaultfont)
+)
+$puts(
+  year,
+  $year(
+    $if3(
+      %original release date%,
+      %originalyear%,
+      %originaldate%,
+      %date%,
+      $get(null)
+    )
+  )
+)
+$puts(
+  label,
+  $if3(
+    %label%,
+    %publisher%,
+    %copyright%,
+    $get(null)
+  )
+)
+$puts(
+  dateLabel,
+  $crlf()
+  $get(font13)
+  $get(year)
+  $if(
+    $and(
+      $get(year),
+      $get(label)
+    ),
+    $get(comma)$get(spc)
+  )
+  $get(label)
+  $get(defaultfont)
+)
+$puts(
+  genreBorder,
+  $if(
+    $or(
+      %genre%,
+      %style%
+    ),
+    $crlf()
+    $get(borderLine)
+  )
+)
+$puts(
+  genre,
+  $if(
+    %genre%,
+    $crlf()
+    $get(font8)$get(fontBold)%genre%$get(defaultfont)
+  )
+)
+$puts(
+  style,
+  $if(
+    %style%,
+    $crlf()
+    $get(color_main_light)%style%$get(color_main)
+  )
+)
+//endsection> local files
+//section> stars
+// -------------------------------------------------------------------
+//
+//   Indicatore del rating
+//
+// -------------------------------------------------------------------
+$puts(
+  actualFontColor,
+  $if(
+    $meta(rating),
+    $get(color_stars),
+    $get(null)
+  )
+  $if(
+    $meta(red rating),
+    $get(color_red_stars),
+    $get(null)
+  )
+)
+$puts(
+  actualFontStars,
+  $ifequal(
+    $if2(
+      $meta(red rating),
+      $meta(rating)
+    ),
+    -1,
+    $get(font21b),
+    $get(fontStars)
+  )
+)
+$puts(
+  ratingTarget,
+  $if3(
+    $meta(red rating),
+    $meta(rating),
+    $get(null)
+  )
+)
+$puts(
+  isNegativeRating,
+  $ifequal(
+    $meta(rating),-1,
+    $get(true),
+    $get(false)
+  )
+)
+//---
+// @costant:
+//   ratingPositivePart
+// @description:
+//   restituisce la parte intera del valore contenuto in `rating`;
+//   dato `rating`, se contiene un carattere '.' restituisce il numero che
+//   precede il punto, altrimenti restituisce `rating`
+// @example: 
+//   `$get(ratingPositivePart)` => restituisce '4' sia che `rating`
+//   contenga '4' sia che contenga '4.5'
+//---
+$puts(
+  ratingPositivePart,
+  $ifgreater(
+    $strchr(
+      $get(ratingTarget),
+      '.'
+    ),
+    0,
+    $substr(
+      $get(ratingTarget),
+      1,
+      $sub(
+        $strchr(
+        $get(ratingTarget),
+        '.'
+        ),
+        1
+      )
+    ),
+    $get(ratingTarget)
+  )
+)
+//---
+// @costant: ratingHalfPart
+// @description: restituisce '1' se `rating` contiene un carattere '.',
+//   altrimenti '0'. E' il numero di volte per il quale va ripetuto
+//   il carattere 'halfStar' nella rappresentazione "a stelle"
+// @example: `$get(ratingHalfPart)` => restituisce '0' se `rating` contiene
+//   '3'; restituisce '1' se `rating` contiene '3.5'
+//---
+$puts(
+  ratingHalfPart,
+  $ifgreater(
+    $strchr(
+      $get(ratingTarget),
+      '.'
+    ),
+    0,
+    1,
+    0
+  )
+)
+//---
+// @costant: ratingNegativePart
+// @description: restituisce il numero di volte per il quale va ripetuto il
+//   carattere 'blackStar'; dato `rating`, sottrae il valore di
+//   `ratingPositivePart` da 5 se `rating` non contiene un carattere '.', 
+//   altrimenti lo sottrae da 4
+// @example: `$get(ratingNegativePart)` => restituisce '1' sia che `rating`
+//   contenga '4' sia che contenga '3.5' (in questo caso viene inserito un
+//   carattere 'halfStar')
+//---
+$puts(
+  ratingNegativePart,
+  $sub(
+    $ifgreater(
+      $strchr(
+        $get(ratingTarget),
+        '.'
+      ),
+      0,
+      $sub(
+        $get(starsLineLength),
+        1
+      ),
+      $get(starsLineLength)
+    ),
+    $get(ratingPositivePart)
+  )
+)
+$puts(
+  ratingStarsLine,
+  $if(
+    $get(isNegativeRating),
+    $repeat(
+      $get(dangerChar),
+      3
+    ),
+    $repeat(
+      $get(blackStar),
+      $get(ratingNegativePart)
+    )
+    $repeat(
+      $get(halfStar),
+      $get(ratingHalfPart)
+    )
+    $repeat(
+      $get(whiteStar),
+      $get(ratingPositivePart)
+    )
+  )
+)
+$puts(
+  ratingStars,
+  $crlf()
+  $crlf()
+  $get(actualFontStars)
+  $get(actualFontColor)
+  $get(ratingStarsLine)
+  $get(color_main)
+  $get(defaultfont)
+)
+//endsection> stars
+//endsection> molecules
+//section> main routine
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(color_main)
+$if(
+// is radio stream?
+  $get(isRadioStream),
+// then
+  $get(radioStreamIcon)
+  $get(radioStreamArtist)
+  $get(radioStreamTitle)
+  $get(radioStreamGenre),
+// else
+  $get(artist)
+  $get(title)
+  $get(trackArtist)
+  $get(album)
+  $get(dateLabel)
+  $get(genreBorder)
+  $get(genre)
+  $get(style)
+  $get(genreBorder)
+  $get(ratingStars)
+)
+//endsection> main routine

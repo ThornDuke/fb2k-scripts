@@ -1,0 +1,69 @@
+{
+  "File header": {
+    "prefix": "doc file frontmatter",
+    "body": [
+      "//section> frontmatter ===============================================",
+      "//",
+      "//   ${1:script description}",
+      "//",
+      "// Author:   ${2:author}",
+      "// Version:  ${3:version}",
+      "// Date:     ${4:${5:$CURRENT_YEAR}-${6:$CURRENT_MONTH}-${7:$CURRENT_DATE}}",
+      "//",
+      "//endsection> frontmatter ============================================",
+      "$0"
+    ],
+    "description": "Inserisce l'intestazione di un file di script"
+  },
+  "fbdoc block": {
+    "prefix": "fbdoc",
+    "body": [
+      "//---",
+      "// @costant:",
+      "//   ${1:costant}",
+      "// @description:",
+      "//   ${2:description}",
+      "// @example:",
+      "//   ${3:example}",
+      "//---",
+      "$0"
+    ],
+    "description": "Inserisce un blocco fbdoc per la documentazione di una costante"
+  },
+  "documentation section region": {
+    "prefix": "doc section",
+    "body": [
+      "//section> ${1|atoms,molecules,variables,organs,body|}",
+      "// -------------------------------------------------------------------",
+      "//",
+      "//   ${2:block title}",
+      "//",
+      "// -------------------------------------------------------------------",
+      "$0",
+      "//endsection> $1"
+    ],
+    "description": "Inserisce una sezione /foldable/ con nome e titolo"
+  },
+  "documentation code block title": {
+    "prefix": "doc block",
+    "body": [
+      "// -------------------------------------------------------------------",
+      "//",
+      "//   ${1:block title}",
+      "//",
+      "// -------------------------------------------------------------------",
+      "$0"
+    ],
+    "description": "Evidenzia con un titolo l'inizio di una sezione /not foldable/ del codice"
+  },
+  "simplified 'puts' function": {
+    "prefix": "puts",
+    "body": [
+      "\\$puts(",
+      "  $1",
+      "  $2",
+      ")$0"
+    ],
+    "description": "Funzione PUTS"
+  }
+}

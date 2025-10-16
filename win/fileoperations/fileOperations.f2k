@@ -1,0 +1,227 @@
+//section> frontmatter ====================================================
+//
+// Path building for Convert and File operations
+//
+// 1. Take in account if it is a Series
+// 2. Builds the text of the first two folders by distinguishing
+//    between letters, numbers and other characters
+//
+// Example:
+//    Series: SERIES/A/Series Name/2024 - Volume Name/cd 1/1 - Title.ext
+//    No Series: A/AL/Album Artist/2024 - Album Name/cd 1/1 - Title.ext
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-09-23
+//
+//endsection> frontmatter =================================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Atomic Elements
+//
+// -------------------------------------------------------------------
+$puts(
+  true,
+  'true'
+)
+$puts(
+  false,
+  $get(null)
+)
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  dash,
+  '-'
+)
+$puts(
+  slash,
+  '/'
+)
+//endsection> atoms
+//section> normalizing
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  albumArtist,
+  $stripprefix(
+    $ascii($trim(%album artist%)),
+    'the'
+  )
+)
+$puts(
+  album,
+  $ascii($trim(%album%))
+)
+$puts(
+  series,
+  $ascii($trim(%series%))
+)
+$puts(
+  date,
+  $cut(%date%,4)
+)
+//endsection> normalizing
+//section> first folders
+// -------------------------------------------------------------------
+//
+//   Cartelle iniziali
+//
+// -------------------------------------------------------------------
+// Se il disco fa parte di una serie la costante `target` contiene
+// il contenuto della costante `series` senza l'eventuale 'The'
+// iniziale. Altrimenti alla costante `target` viene assegnato il
+// valore della costante `albumArtist`.
+// Se i primi due caratteri di `target` sono lettere o numeri,
+// questi vengono usati per costruire le prime due cartelle;
+// altrimenti vengono sostituite da un carattere '-'.
+$puts(
+  target,
+  $if(
+    %series%,
+    $stripprefix($get(series),the),
+    $get(albumArtist)
+  )
+)
+$puts(
+  firstCh,
+  $ascii($substr($get(target),1,1))
+)
+$puts(
+  secondCh,
+  $iflonger(
+    $get(target),1,
+    $ascii($substr($get(target),2,2)),
+    $get(dash)
+  )
+)
+$puts(
+  isFirstChLetter,
+  $if(
+    $strcmp(
+      $upper($get(firstCh)),
+      $lower($get(firstCh))
+    ),
+    $get(false),
+    $get(true)
+  )
+)
+$puts(
+  isSecondChLetter,
+  $if(
+    $strcmp(
+      $upper($get(secondCh)),
+      $lower($get(secondCh))
+    ),
+    $get(false),
+    $get(true)
+  )
+)
+$puts(
+  isFirstChNumber,
+  $if(
+    $or(
+      $strcmp($get(firstCh),0),
+      $greater($get(firstCh),0)
+    ),
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  isSecondChNumber,
+  $if(
+    $or(
+      $strcmp($get(secondCh),0),
+      $greater($get(secondCh),0)
+    ),
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  firstChar,
+  $if(
+    $or(
+      $get(isFirstChLetter),
+      $get(isFirstChNumber)
+    ),
+    $upper($get(firstCh)),
+    $get(dash)
+  )
+)
+$puts(
+  secondChar,
+  $if(
+    $or(
+      $get(isSecondChLetter),
+      $get(isSecondChNumber)
+    ),
+    $upper($get(secondCh)),
+    $get(dash)
+  )
+)
+//endsection> first folders
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Costruzione delle singole cartelle
+//
+// -------------------------------------------------------------------
+$puts(
+  volumeName,
+  $if(
+    %volume%,
+    vol$get(spc)%volume%,
+    $get(album)
+  )
+)
+$puts(
+  discnumberFolder,
+  $if(
+    %discnumber%,
+    cd$get(spc)%discnumber%$get(slash),
+    $get(null)
+  )
+)
+$puts(
+  trackFileName,
+  %track number%$get(spc)$get(dash)$get(spc)%title%
+)
+$puts(
+  seriesStart,
+  'SERIES'$get(slash)
+  $get(firstChar)$get(slash)
+  $get(series)$get(slash)
+  $get(date)$get(spc)$get(dash)$get(spc)$get(volumeName)$get(slash)
+)
+$puts(
+  notSeriesStart,
+  $get(firstChar)$get(slash)
+  $get(firstChar)$get(secondChar)$get(slash)
+  $get(albumArtist)$get(slash)
+  $get(date)$get(spc)$get(dash)$get(spc)$get(album)$get(slash)
+)
+$puts(
+  startFolders,
+  $if(
+    %series%,
+    $get(seriesStart),
+    $get(notSeriesStart)
+  )
+)
+//endsection> molecules
+//section> end
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(startFolders)$get(discnumberFolder)$get(trackFileName)
+//endsection> end

@@ -1,0 +1,167 @@
+//section> frontmatter ===============================================
+//
+//   Run services: DiscoGS Search
+// 
+// Restituisce la stringa da passare alla API di DiscoGS per
+// effettuare una ricerca per <Album Artist>+<Album>
+//
+// Keybinding: Shift+Ctrl+G
+// Label: Discogs Artist + Album
+//
+// Author:   Thorn Duke
+// Version:  1.1.0
+// Date:     2025-09-28
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  plus,
+  '+'
+)
+$puts(
+  service,
+  'https://www.discogs.com/search?q='
+)
+$puts(
+  limitPar,
+  '&limit=50'
+)
+$puts(
+  typePar,
+  '&type=all'
+)
+//endsection> atoms
+//section> tags normalizing
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+// 'Various artists' deve essere 'Various' nella API di DiscoGS
+$puts(
+  albumArtist,
+  $if(
+    $stricmp(
+      $trim(%album artist%),
+      'various artists'
+    ),
+    'Various',
+    $stripprefix($trim(%album artist%))
+  )
+)
+$puts(
+  album,
+  $trim(%album%)
+)
+//endsection> tags normalizing
+//section> chars sanitizing
+// -------------------------------------------------------------------
+//
+//   Igienizzazione dei caratteri
+//
+// -------------------------------------------------------------------
+// Invece di effettuare due traslitterazioni (una per ognuno dei campi
+// <Album Artist> e <Album>), se ne effettua una sola sulla stringa
+// formata dai due campi uniti da uno splitter. La stringa risultante
+// verrà poi "affettata" in corrispondenza dello splitter per ottenere
+// le stringhe da utilizzare nella effettiva chiamata alla Api
+$puts(
+  splitter,
+  'Φ'
+)
+$puts(
+  splitterLength,
+  $len($get(splitter))
+)
+$puts(
+  target,
+  $get(albumArtist)$get(splitter)$get(album)
+)
+$puts(
+  safeTarget,
+  $replace(
+    $get(target),
+    '!','%'21,'"','%'22,'#','%'23,'$','%'24,
+    '%','%'25,'&','%'26,'','%'27,'(','%'28,
+    ')','%'29,'*','%'2A,'+','%'2B,',','%'2C,
+    '/','%'2F,':','%'3A,';'.'%'3B,'<','%'3C,
+    '=','%'3D,'>','%'3E,'?','r%'3F,'@','%'40,
+    '[','%'5B,'\','%'5C,']','%'5D,'^','%'5E,
+    '`','%'60
+  )
+)
+$puts(
+  joinedTarget,
+  $replace(
+    $get(safeTarget),
+    $get(spc),
+    $get(plus)
+  )
+)
+$puts(
+  sanitizedArtist,
+  $substr(
+    $get(joinedTarget),
+    1,
+    $sub(
+      $strstr(
+        $get(joinedTarget),
+        $get(splitter)
+      ),
+      1
+    )
+  )
+)
+$puts(
+  sanitizedAlbum,
+  $substr(
+    $get(joinedTarget),
+    $add(
+      $strstr(
+        $get(joinedTarget),
+        $get(splitter)
+      ),
+      $get(splitterLength)
+    ),
+    $len($get(joinedTarget))
+  )
+)
+//endsection> chars sanitizing
+//section> pieces
+// -------------------------------------------------------------------
+//
+//   Pezzi costitutivi della linea finale
+//
+// -------------------------------------------------------------------
+$puts(
+  titlePar,
+  '&title='
+  $get(sanitizedAlbum)
+)
+$puts(
+  artistPar,
+  '&artist='
+  $get(sanitizedArtist)
+)
+$puts(
+  params,
+  $get(limitPar)$get(typePar)$get(titlePar)$get(artistPar)
+)
+//endsection> pieces
+//section> line building
+// -------------------------------------------------------------------
+//
+//   Costruzione della linea
+//
+// -------------------------------------------------------------------
+$get(service)$get(params)
+//endsection> line building

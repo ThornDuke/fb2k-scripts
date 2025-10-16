@@ -1,0 +1,96 @@
+//section> frontmatter ===============================================
+//
+//   Run services: Musicbrainz Search
+// 
+// Restituisce la stringa da passare alla API di Musicbrainz per
+// effettuare una ricerca per <Album Artist>+<Album>
+// 
+// compilare con Ctrl+K Ctrl+Y (Cmd+K Cmd+Y)
+//
+// Keybinding: Shift+Ctrl+M
+// Label: Musicbrainz Artist + Album
+//
+// Author:  Thorn Duke
+// Version: 1.0.2
+// Date:    2025-09-23
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  plus,
+  '+'
+)
+$puts(
+  service,
+  'https://musicbrainz.org/search?query='
+)
+$puts(
+  parameters,
+  '&type=release'
+  '&limit=100'
+)
+//endsection> atoms
+//section> tag normalizing
+// -------------------------------------------------------------------
+//
+//   normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  albumartist,
+  $stripprefix($trim(%album artist%))
+)
+$puts(
+  album,
+  $trim(%album%)
+)
+//endsection> tag normalizing
+//section> chars sanitizing
+// -------------------------------------------------------------------
+//
+//   igienizzazione dei caratteri
+//
+// -------------------------------------------------------------------
+$puts(
+  target,
+  $get(albumartist)$get(spc)$get(album)
+)
+$puts(
+  safeTarget,
+  $replace(
+    $get(target),
+    '!','%'21,'"','%'22,'#','%'23,'$','%'24,
+    '%','%'25,'&','%'26,'','%'27,'(','%'28,
+    ')','%'29,'*','%'2A,'+','%'2B,',','%'2C,
+    '/','%'2F,':','%'3A,';'.'%'3B,'<','%'3C,
+    '=','%'3D,'>','%'3E,'?','r%'3F,'@','%'40,
+    '[','%'5B,'\','%'5C,']','%'5D,'^','%'5E,
+    '`','%'60
+  )
+)
+$puts(
+  joinedTarget,
+  $replace(
+    $get(safeTarget),
+    $get(spc),
+    $get(plus)
+  )
+)
+//endsection> chars sanitizing
+//section> line building
+// -------------------------------------------------------------------
+//
+//   costruzione della linea
+//
+// -------------------------------------------------------------------
+$get(service)$get(joinedTarget)$get(parameters)
+//endsection> line building

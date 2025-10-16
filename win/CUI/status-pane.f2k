@@ -1,0 +1,121 @@
+//section> frontmatter ===============================================
+//
+//   Status Panel
+// 
+// The content of the main status pane section
+// during playback in ColumnsUI
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-10-07
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  TRUE,
+  'true'
+)
+$puts(
+  FALSE,
+  $get(NULL)
+)
+$puts(
+  SPC,
+  ' '
+)
+$puts(
+  PIPE,
+  '|'
+)
+$puts(
+  DASH,
+  '-'
+)
+$puts(
+  SLASH,
+  '/'
+)
+//endsection> atoms
+//section> normalization
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  ARTIST,
+  $if(
+    %artist%,
+    $stripprefix(
+      $trim(%artist%),
+      'The'
+    ),
+    $get(NULL)
+  )
+)
+$puts(
+  TITLE,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(NULL)
+  )
+)
+//endsection> normalization
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  SPLITTER,
+  $get(SPC)$get(PIPE)$get(SPC)
+)
+$puts(
+  DIVIDER,
+  $get(SPC)$get(DASH)$get(SPC)
+)
+// %playback_time% restituisce '?' quando la traccia non è in esecuzione
+// altrimenti una stringa nella forma [HH:]MM:SS
+$puts(
+  ISPLAYING,
+  $ifequal(
+    $len(%playback_time%),1,
+    $get(FALSE),
+    $get(TRUE)
+  )
+)
+$puts(
+  DURATION,
+  $if(
+    $get(ISPLAYING),
+    $get(SPLITTER)%playback_time%$get(SLASH)%length%,
+    $get(NULL)
+  )
+)
+//endsection> molecules
+//section> body
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(ARTIST)
+$get(DIVIDER)
+$get(TITLE)
+$crlf()
+%codec%
+$get(SPLITTER)
+%bitrate% kbps
+$get(SPLITTER)
+%samplerate% Hz
+$get(SPLITTER)
+$caps(%channels%)
+$get(DURATION)
+//endsection> body

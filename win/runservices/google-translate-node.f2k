@@ -1,0 +1,136 @@
+//section> frontmatter ===============================================
+//
+//   Google Translate with Node
+// 
+// Prende alcuni tag, li unisce con un separatore, e li manda come
+// un unico parametro ad uno script Node.js. I tag contenenti il testo
+// della traccia sono prodotti dal plugin Open Lyrics.
+//
+// Author:   Thorn Duke
+// Version:  1.1.0
+// Date:     2025-10-15
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi Atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  splitter,
+  ⟨∆∇∆⟩
+)
+$puts(
+  interpreter,
+  node
+)
+$puts(
+  script,
+  C:\Users\User\Documents\FB2K\fb2kscripts\interpreted\gtc.js
+)
+//endsection> atoms
+//section> variables
+// -------------------------------------------------------------------
+//
+//   Variabili
+//
+// -------------------------------------------------------------------
+$puts(
+  TITLE,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST,
+  $if(
+    %artist%,
+    $stripprefix(
+      $trim(%artist%),
+      'The'
+    ),
+    $get(null)
+  )
+)
+$puts(
+  ALBUM,
+  $if(
+    %album%,
+    $trim(%album%),
+    $get(null)
+  )
+)
+$puts(
+  LYRICS,
+  $if3(
+    $meta(LYRICS),
+    $meta(SYNCEDLYRICS),
+    $meta(UNSYNCEDLYRICS),
+    $meta(UNSYNCED LYRICS),
+    $get(null)
+  )
+)
+//endsection> variables
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi Molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  title_section,
+  '[title:]'
+  $get(TITLE)
+)
+$puts(
+  artist_section,
+  '[artist:]'
+  $get(ARTIST)
+)
+$puts(
+  album_section,
+  '[album:]'
+  $get(ALBUM)
+)
+$puts(
+  lyrics_section,
+  '[lyrics:]'
+  $get(LYRICS)
+)
+//endsection> molecules
+//section> organs
+// -------------------------------------------------------------------
+//
+//   Elementi Complessi
+//
+// -------------------------------------------------------------------
+$puts(
+  parameters,
+  $get(title_section)
+  $get(splitter)
+  $get(artist_section)
+  $get(splitter)
+  $get(album_section)
+  $get(splitter)
+  $get(lyrics_section)
+)
+//endsection> organs
+//section> body
+// -------------------------------------------------------------------
+//
+//   Linea Finale
+//
+// -------------------------------------------------------------------
+$get(interpreter)
+$get(spc)
+$get(script)
+$get(spc)
+$get(parameters)
+//endsection> body

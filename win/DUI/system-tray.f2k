@@ -1,0 +1,76 @@
+//section> frontmatter ===============================================
+//
+//   System Tray
+//
+// The title of the system tray during playback in DUI
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-10-05
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  dash,
+  '-'
+)
+//endsection> atoms
+//section> tags normalizing
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  artist,
+  $if(
+    %artist%,
+    $stripprefix(
+      $trim(%artist%),
+      'The'
+    ),
+    $get(null)
+  )
+)
+$puts(
+  title,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(null)
+  )
+)
+//endsection> tags normalizing
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  artistSign,
+  $if(
+    $get(artist),
+    $get(artist)$get(spc)$get(dash)$get(spc),
+    $get(null)
+  )
+)
+//endsection> molecules
+//section> end
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(artistSign)
+$get(title)
+//endsection> end

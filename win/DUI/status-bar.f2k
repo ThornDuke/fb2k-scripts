@@ -1,0 +1,81 @@
+//section> frontmatter ===============================================
+//
+//   Status Bar
+// 
+// The title of the status bar during playback in DUI
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-10-05
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  true,
+  'true'
+)
+$puts(
+  false,
+  $get(null)
+)
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  slash,
+  '/'
+)
+$puts(
+  pipe,
+  '|'
+)
+//endsection> atoms
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  splitter,
+  $get(spc)$get(pipe)$get(spc)
+)
+// %playback_time% restituisce '?' quando la traccia non è in esecuzione
+// altrimenti una stringa nella forma [HH:]MM:SS
+$puts(
+  isPlaying,
+  $ifequal(
+    $len(%playback_time%),
+    1,
+    $get(false),
+    $get(true)
+  )
+)
+$puts(
+  duration,
+  $if(
+    $get(isPlaying),
+    $get(splitter)%playback_time%$get(slash)%length%,
+    $get(null)
+  )
+)
+//endsection> molecules
+//section> body
+// -------------------------------------------------------------------
+//
+//   Routine principale
+//
+// -------------------------------------------------------------------
+%codec%$get(splitter)
+%bitrate% kbps$get(splitter)
+%samplerate% Hz$get(splitter)
+%channels%
+$get(duration)
+//endsection> body
+

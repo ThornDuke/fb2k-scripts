@@ -1,0 +1,105 @@
+// first level
+$year(
+  $if3(
+    %original release date%,
+    %originalyear%,
+    %originaldate%,
+    %date%
+  )
+)
+// Show only on playlist: Highly Rated;Rated
+
+// first level
+$puts(spc,' ')
+$puts(checked,'☑')
+$puts(unchecked,'☐')
+$puts(radioactive,'☣')
+$puts(tripleLT,'⫷')
+$puts(tripleGT,'⫸')
+[%album artist%]
+[$get(spc)-$get(spc)$cut($if2(%series%,%album%),60)]
+[$get(spc)'('
+  [$year(
+    $if3(
+      %original release date%,
+      %originalyear%,
+      %original date%,
+      %date%
+    )
+  )]
+[,$get(spc)$if3(%label%,%publisher%,%copyright%)]')']
+$if(
+  $not(%server%),
+  $if(
+    $stricmp(%checked%,y),
+    $get(spc)$get(checked),
+    $get(spc)$get(unchecked)
+  )
+)
+$if(
+  $not(%server%),
+  $tab(2)
+  $ifequal(
+    $meta(rating),-1,
+    $get(radioactive),
+    $if(
+      $meta(red rating),
+      $rgb(255,255,0)$get(tripleLT)
+      $rgb(255,255,255)$get(spc)
+      $rgb(255,0,0)$meta(red rating)
+      $rgb(255,255,255)$get(spc)
+      $rgb(255,255,0)$get(tripleLT)
+      $rgb(255,255,255),
+      $rgb(255,0,0)$get(tripleGT)
+      $rgb(255,255,255)$get(spc)
+      $rgb(255,255,0)$meta(rating)
+      $rgb(255,255,255)$get(spc)
+      $rgb(255,0,0)$get(tripleGT)
+      $rgb(255,255,255)
+    )
+  )
+)
+$tab()
+// Hide on playlist: Series
+
+// first level
+$puts(spc,' ')
+$puts(checked,'☑')
+$puts(unchecked,'☐')
+%series%$get(spc)'('
+$year(
+  $if3(
+    %original release date%,
+    %originalyear%,
+    %original date%,
+    %date%
+  )
+)
+[,$get(spc)$if3(%label%,%publisher%,%copyright%)]
+')'$get(spc)
+$if(
+  $stricmp(%checked%,y),
+  $get(spc)$get(checked),
+  $get(spc)$get(unchecked)
+)
+// Show only on playlist: Series
+
+// second level
+$puts(spc,' ')
+$puts(bar,'●━━━━━')
+$puts(slash,'/')
+$if(
+  %discnumber%,
+  $get(bar)$get(spc)cd$get(spc)%discnumber%,
+  $if(
+    %volume%,
+    $get(bar)$get(spc)vol$get(spc)%volume%/%volumes%,$get(null)
+  )
+)
+// Hide on playlist: Series
+
+// second level
+$puts(spc,' ')
+$puts(bar,'●━━━━━')
+[$get(bar)$get(spc)Vol.$get(spc)%volume%$get(slash)%volumes%]
+// Show only on playlist: Series

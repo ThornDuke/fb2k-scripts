@@ -1,0 +1,6 @@
+###
+# https://www.atlassian.com/it/git/tutorials/saving-changes/gitignore
+###
+.DS_*
+notes.md
+test.*

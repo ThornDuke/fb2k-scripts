@@ -1,0 +1,226 @@
+//section> frontmatter ===============================================
+//
+//   Main Window
+// 
+// The title of the main window during playback in ColumnsUI
+//
+// Author:   Thorn Duke
+// Version:  1.0.1
+// Date:     2025-10-10
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi Atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  spcs,
+  '  '
+)
+$puts(
+  pipe,
+  '┃'
+)
+$puts(
+  diamond,
+  '◈'
+)
+//endsection> atoms
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi Molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  divider,
+  $get(spcs)$get(pipe)$get(spcs)
+)
+$puts(
+  presign,
+  $get(spcs)$get(spcs)$get(diamond)$get(spcs)$get(spcs)
+)
+//endsection> molecules
+//section> variables
+// -------------------------------------------------------------------
+//
+//   Variabili
+//
+// -------------------------------------------------------------------
+$puts(
+  TITLE,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(null)
+  )
+)
+$puts(
+  TRACK_NUMBER,
+  $trim(%track number%)
+)
+$puts(
+  TOTAL_TRACKS,
+  $if(
+    %totaltracks%,
+    $num(
+      $trim(%totaltracks%),
+      0
+    ),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST,
+  $if(
+    %album artist%,
+    $stripprefix(
+      $trim(%album artist%),
+      The
+    )
+  )
+)
+$puts(
+  ALBUM,
+  $if(
+    %album%,
+    $trim(%album%),
+    $get(null)
+  )
+)
+$puts(
+  DATE,
+  $if(
+    %date%,
+    %date%,
+    $get(null)
+  )
+)
+$puts(
+  PLAYBACK_TIME,
+  $if(
+    %playback_time%,
+    %playback_time%,
+    $get(null)
+  )
+)
+$puts(
+  LENGTH,
+  $if(
+    %length%,
+    %length%,
+    $get(null)
+  )
+)
+//endsection> variables
+//section> organs
+// -------------------------------------------------------------------
+//
+//   Organi
+//
+// -------------------------------------------------------------------
+$puts(
+  TITLE_CHUNK,
+  $if(
+    $get(TITLE),
+    Title:$get(spc)$get(TITLE),
+    $get(null)
+  )
+)
+$puts(
+  TRACKNUMBER_CHUNK,
+  $if(
+    $get(TRACK_NUMBER),
+    Track:$get(spc)$get(TRACK_NUMBER),
+    $get(null)
+  )
+)
+$puts(
+  TOTALTRACKS_CHUNK,
+  $if(
+    $get(TOTAL_TRACKS),
+    $get(spc)of$get(spc)$get(TOTAL_TRACKS),
+    $get(null)
+  )
+)
+$puts(
+  TRACK_COUNT_CHUNK,
+  $if(
+    $get(TRACKNUMBER_CHUNK),
+    $get(divider)$get(TRACKNUMBER_CHUNK)$get(TOTALTRACKS_CHUNK),
+    $get(null)
+  )
+)
+$puts(
+  PLAYBACKTIME_CHUNK,
+  $if(
+    $get(PLAYBACK_TIME),
+    Played:$get(spc)$get(PLAYBACK_TIME),
+    $get(null)
+  )
+)
+$puts(
+  LENGTH_CHUNK,
+  $if(
+    $get(LENGTH),
+    $get(spc)of$get(spc)$get(LENGTH),
+    $get(null)
+  )
+)
+$puts(
+  TIME_CHUNK,
+  $if(
+    $get(PLAYBACKTIME_CHUNK),
+    $get(divider)$get(PLAYBACKTIME_CHUNK)$get(LENGTH_CHUNK),
+    $get(null)
+  )
+)
+$puts(
+  ARTIST_CHUNK,
+  $if(
+    $get(ARTIST),
+    $get(divider)Artist:$get(spc)$get(ARTIST),
+    $get(null)
+  )
+)
+$puts(
+  ALBUM_CHUNK,
+  $if(
+    $get(ALBUM),
+    $get(divider)Album:$get(spc)$get(ALBUM),
+    $get(null)
+  )
+)
+$puts(
+  YEAR_CHUNK,
+  $if(
+    $get(DATE),
+    $get(divider)Date:$get(spc)$year($get(DATE)),
+    $get(null)
+  )
+)
+//endsection> organs
+//section> body
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$if(
+  %isplaying%,
+  $if(
+    $get(TITLE_CHUNK),
+    $get(TITLE_CHUNK)$get(TRACK_COUNT_CHUNK)$get(TIME_CHUNK)
+    $get(ARTIST_CHUNK)$get(ALBUM_CHUNK)$get(YEAR_CHUNK)$get(presign),
+    $get(null)
+  ),
+  $get(null)
+)
+%_foobar2000_version%
+//endsection> body

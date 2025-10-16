@@ -1,0 +1,92 @@
+//section> frontmatter ===============================================
+//
+//   Run services: Google search (personal page)
+// 
+// Restituisce la stringa da passare alla API di Google per effettuare
+// una ricerca per <Album Artist>+<Album> su tutto il web, non solo su
+// alcune riviste, e usando una pagina personalizzata
+// 
+// da compilare con Ctrl+K Ctrl+Y (Cmd+K Cmd+Y)
+//
+// Keybinding: Shift+Ctrl+E
+// Label: Personal Google Reviews Artist + Album
+//
+// Author:  Thorn Duke
+// Version: 1.0.2
+// Date:    2025-09-23
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// ===================================================================
+//
+//   elementi atomici
+//
+// ===================================================================
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  plus,
+  '+'
+)
+$puts(
+  service,
+  'https://cse.google.com/cse?cx=146f85e605dc94c01&q='
+)
+//endsection> atoms
+//section> tag normalizing
+// ===================================================================
+//
+//   normalizzazione dei tag
+//
+// ===================================================================
+$puts(
+  albumartist,
+  $stripprefix($trim(%album artist%))
+)
+$puts(
+  album,
+  $trim(%album%)
+)
+//endsection> normalizing
+//section> tag sanitizing
+// ===================================================================
+//
+//   igienizzazione dei caratteri
+//
+// ===================================================================
+$puts(
+  target,
+  $get(albumartist)$get(spc)$get(album)
+)
+$puts(
+  safeTarget,
+  $replace(
+    $get(target),
+    '!','%'21,'"','%'22,'#','%'23,'$','%'24,
+    '%','%'25,'&','%'26,'','%'27,'(','%'28,
+    ')','%'29,'*','%'2A,'+','%'2B,',','%'2C,
+    '/','%'2F,':','%'3A,';'.'%'3B,'<','%'3C,
+    '=','%'3D,'>','%'3E,'?','r%'3F,'@','%'40,
+    '[','%'5B,'\','%'5C,']','%'5D,'^','%'5E,
+    '`','%'60
+  )
+)
+$puts(
+  joinedSafeTarget,
+  $replace(
+    $get(safeTarget),
+    $get(spc),
+    $get(plus)
+  )
+)
+//endsection> sanitizing
+//section> line building
+// ===================================================================
+//
+//   costruzione della linea
+//
+// ===================================================================
+$get(service)$get(joinedSafeTarget)
+//endsection> line building

@@ -1,0 +1,219 @@
+//section> frontmatter ===============================================
+//
+//   Window Title
+// 
+// The title of the main window during playback in DUI
+//
+// Author:   Thorn Duke
+// Version:  1.0.0
+// Date:     2025-10-05
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  2spc,
+  $repeat(
+    $get(spc),
+    2
+  )
+)
+$puts(
+  openParen,
+  '('
+)
+$puts(
+  closeParen,
+  ')'
+)
+$puts(
+  comma,
+  ','
+)
+$puts(
+  quotationMark,
+  '"'
+)
+$puts(
+  triang,
+  '⟁'
+)
+$puts(
+  circleDot,
+  '●'
+)
+//endsection> atoms
+//section> tag normalization
+// -------------------------------------------------------------------
+//
+//   Normalizzazione dei campi
+//
+// -------------------------------------------------------------------
+$puts(
+  artist,
+  $if(
+    %artist%,
+    $stripprefix(
+      $trim(%album artist%),
+      'The'
+    ),
+    $get(null)
+  )
+)
+$puts(
+  title,
+  $if(
+    %title%,
+    $trim(%title%),
+    $get(null)
+  )
+)
+$puts(
+  album,
+  $if(
+    %album%,
+    $trim(%album%),
+    $get(null)
+  )
+)
+$puts(
+  year,
+  $year(
+    $if3(
+      %original release date%,
+      %originalyear%,
+      %originaldate%,
+      %date%,
+      $get(null)
+    )
+  )
+)
+$puts(
+  label,
+  $trim(
+    $if3(
+      %label%,
+      %publisher%,
+      %copyright%,
+      $get(null)
+    )
+  )
+)
+$puts(
+  genre,
+  $if(
+    %genre%,
+    $meta_sep(
+      genre,
+      ';'$get(spc)
+    ),
+    $get(null)
+  )
+)
+$puts(
+  style,
+  $if(
+    %style%,
+    $meta_sep(
+      style,
+      ';'$get(spc)
+    ),
+    $get(null)
+  )
+)
+//endsection> tag normalization
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  spacedArtist,
+  $if(
+    $get(artist),
+    $get(artist)$get(spc),
+    $get(null)
+  )
+)
+$puts(
+  spacedTitle,
+  $if(
+    $get(title),
+    $get(quotationMark)$get(title)$get(quotationMark)$get(spc),
+    $get(null)
+  )
+)
+$puts(
+  spacedLabel,
+  $if(
+    $get(label),
+    $get(spc)$get(label),
+    $get(null)
+  )
+)
+$puts(
+  spacedYear,
+  $if(
+    $get(year),
+    $get(comma)$get(spc)$get(year)$get(spacedLabel),
+    $get(null)
+  )
+)
+$puts(
+  spacedAlbum,
+  $if(
+    $get(album),
+    $get(openParen)$get(album)$get(spacedYear)$get(closeParen),
+    $get(null)
+  )
+)
+$puts(
+  spacedStyle,
+  $if(
+    $get(style),
+    $get(spc)$get(circleDot)$get(spc)$get(style),
+    $get(null)
+  )
+)
+$puts(
+  spacedGenre,
+  $if(
+    $get(genre),
+    $get(genre)$get(spacedStyle),
+    $get(null)
+  )
+)
+$puts(
+  splitter,
+  $get(2spc)$get(triang)$get(2spc)
+)
+$puts(
+  filler,
+  $repeat(
+    $get(spc),
+    1000
+  )
+)
+//endsection> molecules
+//section> end
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(spacedArtist)
+$get(spacedTitle)
+$get(spacedAlbum)
+$get(splitter)
+$get(spacedGenre)
+$get(filler)
+//endsection> end
