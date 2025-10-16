@@ -22,10 +22,6 @@ $puts(
   ' '
 )
 $puts(
-  splitter,
-  ⟨∆∇∆⟩
-)
-$puts(
   interpreter,
   node
 )
@@ -86,23 +82,27 @@ $puts(
 // -------------------------------------------------------------------
 $puts(
   title_section,
-  '[title:]'
+  '<title>'
   $get(TITLE)
+  '</title>'
 )
 $puts(
   artist_section,
-  '[artist:]'
+  '<artist>'
   $get(ARTIST)
+  '</artist>'
 )
 $puts(
   album_section,
-  '[album:]'
+  '<album>'
   $get(ALBUM)
+  '</album>'
 )
 $puts(
   lyrics_section,
-  '[lyrics:]'
+  '<lyrics>'
   $get(LYRICS)
+  '</lyrics>'
 )
 //endsection> molecules
 //section> organs
@@ -114,11 +114,8 @@ $puts(
 $puts(
   parameters,
   $get(title_section)
-  $get(splitter)
   $get(artist_section)
-  $get(splitter)
   $get(album_section)
-  $get(splitter)
   $get(lyrics_section)
 )
 //endsection> organs

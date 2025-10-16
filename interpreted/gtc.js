@@ -25,8 +25,8 @@
 const { exec } = require('node:child_process');
 const { browseAlert } = require('./helper/browsealert')
 const { labels } = require('./helper/labels')
+const { logToFile } = require('./helper/logToFile')
 
-const SPLITTER = '⟨∆∇∆⟩';
 
 function getAlertParam(title, artist, album, message) {
   return {
@@ -37,28 +37,34 @@ function getAlertParam(title, artist, album, message) {
   }
 }
 
+function getSection(blob, section) {
+  const startSection = `<${section}>`;
+  const endSection = `</${section}>`;
+  const re = new RegExp(startSection + '(.*?)' + endSection, 's');
+  const match = blob.match(re)
+  const result = match ? match[1] : '';
+  return result;
+}
+
 function getTagsContent(blob) {
-  const pieces = blob.split(SPLITTER);
+  const titleBunch = getSection(blob, 'title')
+  const artistBunch = getSection(blob, 'artist')
+  const albumBunch = getSection(blob, 'album')
+  const lyricsBunch = getSection(blob, 'lyrics')
+  logToFile(`blob: ${blob}`)
+  logToFile(`title: ${titleBunch}`)
+  logToFile(`artist: ${artistBunch}`)
+  logToFile(`album: ${albumBunch}`)
+  logToFile(`lyrics: ${lyricsBunch}`)
 
-  const titleBunch = pieces
-    .find(piece => piece.startsWith('[title:]'))
-    .slice(('[title:]').length)
-  const artistBunch = pieces
-    .find(piece => piece.startsWith('[artist:]'))
-    .slice(('[artist:]').length)
-  const albumBunch = pieces
-    .find(piece => piece.startsWith('[album:]'))
-    .slice(('[album:]').length)
-  const lyricsBunch = pieces
-    .find(piece => piece.startsWith('[lyrics:]'))
-    .slice(('[lyrics:]').length)
-
-  return {
+  const result = {
     titolo: titleBunch,
     artista: artistBunch,
     album: albumBunch,
     liriche: lyricsBunch
   }
+
+  return result
 }
 
 const args = process.argv.slice(2);
