@@ -1,8 +1,9 @@
 const labels = {
   html: {
     noLyrics: "This song contains no lyrics",
-    noValidLines: "No valid lines found after processing",
-    instrumentalTrack: "This song is an instrumental"
+    noValidLines: "This track has no lyrics tag",
+    instrumentalTrack: "This song is an instrumental",
+    nonLyricalVocals: "This song contains non-lyrical vocals"
   },
   errors: {
     browserOpening: "Error opening browser",

@@ -45,7 +45,7 @@ function getSection(blob, section) {
   return result;
 }
 
-function getTagsContent(blob) {
+function splitByTags(blob) {
   const titleBunch = getSection(blob, 'title')
   const artistBunch = getSection(blob, 'artist')
   const albumBunch = getSection(blob, 'album')
@@ -61,53 +61,64 @@ function getTagsContent(blob) {
   return result
 }
 
+function extractLyrics(tags) {
+  let hasLyrics = true;
+
+  const { titolo, artista, album, liriche } = splitByTags(tags);
+
+  const timestampPattern = /\[[\d]{2}:[\d]{2}\.[\d]{2}\]/g;
+
+  const processedLines = liriche
+    .split('\n')
+    .map(line => line.replaceAll(timestampPattern, '').trim())
+    .filter(line => line.length > 0);
+
+  if (processedLines.length === 0) {
+    browseAlert(getAlertParam(titolo, artista, album, labels.html.noValidLines))
+    hasLyrics = false;
+  }
+
+  if (processedLines[0].toLowerCase() === '[instrumental]') {
+    browseAlert(getAlertParam(titolo, artista, album, labels.html.instrumentalTrack))
+    hasLyrics = false;
+  }
+
+  if (processedLines[0].toLowerCase() === ('[non-lyrical vocals]')) {
+    browseAlert(getAlertParam(titolo, artista, album, labels.html.nonLyricalVocals))
+    hasLyrics = false;
+  }
+
+  if (
+    (processedLines[0].trimStart().startsWith('作词') &&
+      processedLines[1].trimStart().startsWith('作曲')) ||
+    (processedLines[0].trimStart().startsWith('此歌曲为没有填词的纯音乐')) ||
+    (processedLines[1].trim().startsWith('纯音乐，请欣赏'))
+  ) {
+    browseAlert(getAlertParam(titolo, artista, album, labels.html.noLyrics))
+    hasLyrics = false;
+  }
+
+  return hasLyrics ? processedLines : null;
+}
+
+function showTranslatedLyrics(lyricsAsTextArray) {
+  const encodedLyrics = encodeURIComponent(lyricsAsTextArray.join('\n'));
+  const url = `https://translate.google.com/?hl=it&sl=auto&tl=it&text=${encodedLyrics}&op=translate`;
+  const command = `start /B "" "${url}"`;
+  exec(command, (error) => {
+    if (error) {
+      console.log(`${labels.errors.browserOpening}: ${error.message}`);
+      process.exit(1);
+    }
+  });
+}
+
 const args = process.argv.slice(2);
 
-const fullArgsString = args.join(' ');
+const lyrics = extractLyrics(args.join(' '))
 
-const { titolo, artista, album, liriche } = getTagsContent(fullArgsString);
-
-if (!liriche || liriche.trim().length === 0) {
-  browseAlert(getAlertParam(titolo, artista, album, labels.html.noLyrics))
-  process.exit(1);
+if (!lyrics) {
+  process.exit(1)
+} else {
+  showTranslatedLyrics(lyrics)
 }
-
-let lines = liriche.split('\n');
-
-const timestampPattern = /\[[\d]{2}:[\d]{2}\.[\d]{2}\]/g;
-
-const processedLines = lines
-  .map(line => line.replaceAll(timestampPattern, '').trim())
-  .filter(line => line.length > 0);
-
-if (processedLines.length === 0) {
-  browseAlert(getAlertParam(titolo, artista, album, labels.html.noValidLines))
-  process.exit(1);
-}
-
-if (processedLines[0].toLowerCase() === '[instrumental]') {
-  browseAlert(getAlertParam(titolo, artista, album, labels.html.instrumentalTrack))
-  process.exit(1);
-}
-
-if (
-  (processedLines[0].trimStart().startsWith('作词') &&
-    processedLines[1].trimStart().startsWith('作曲')) ||
-  (processedLines[0].trimStart().startsWith('此歌曲为没有填词的纯音乐'))
-) {
-  browseAlert(getAlertParam(titolo, artista, album, labels.html.noLyrics))
-  process.exit(1);
-}
-
-const encodedText = encodeURIComponent(processedLines.join('\n'));
-
-const url = `https://translate.google.com/?hl=it&sl=auto&tl=it&text=${encodedText}&op=translate`;
-
-const command = `start /B "" "${url}"`;
-
-exec(command, (error) => {
-  if (error) {
-    console.log(`${labels.errors.browserOpening}: ${error.message}`);
-    process.exit(1);
-  }
-});

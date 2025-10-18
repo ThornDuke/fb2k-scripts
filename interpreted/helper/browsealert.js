@@ -12,7 +12,7 @@ function escaped(str) {
   return result;
 }
 
-function browseAlert(msg) {
+function createHTMLPage(msg, style) {
   const titolo = escaped(msg.titolo);
   const artista = escaped(msg.artista);
   const album = escaped(msg.album);
@@ -25,7 +25,7 @@ function browseAlert(msg) {
   <meta charset="UTF-8">
   <title>Notification</title>
   <style>
-    ${styles.schieleDarkStyle}
+    ${style}
   </style>
 </head>
 <body>
@@ -40,11 +40,16 @@ function browseAlert(msg) {
 </html>
 `;
 
+  return htmlContent;
+}
+
+function browseAlert(msg) {
   const tempDir = os.tmpdir();
   const tempFile = path.join(tempDir, `notify_${Date.now()}.html`);
+  const htmlPage = createHTMLPage(msg, styles.rothkoDarkStyle)
 
   try {
-    fs.writeFileSync(tempFile, htmlContent, 'utf8');
+    fs.writeFileSync(tempFile, htmlPage, 'utf8');
 
     execSync(`start "" "${tempFile}"`, { shell: true });
 
