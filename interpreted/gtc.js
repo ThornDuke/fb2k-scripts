@@ -4,25 +4,26 @@
  *
  * Node.js script to send the lyrics of a track to Google Translate
  * and get a translation.
- * 1. an f2k script collects the tags %title%, %artist%, %album% and one of
- * several tags that contain text and passes them as a single parameter to
- * this script;
+ * 1. an f2k script collects the tags %title%, %artist%, %album%
+ *    and one of several tags that contain lyrics and passes them
+ *    as a single parameter to this script;
  * 2. Tags are detected and splitted here
- * 3. if there is no text, it is communicated to the user by opening a page
- * html and the script stops
- * 4. if there is a text it is sent to Google Translate and the page is shown
- * in the browser
+ * 3. if there are no lyrics, it is communicated to the user by
+ *    opening a page html and the script stops
+ * 4. if there are lyrics they aresent to Google Translate and the
+ *    page is shown in the browser
  * 
  * Dependencies:
- * The components for Foobar2000 "Open Lyrics" and "Run Services"
- * Open Lyrics must be configured to save to a tag the lyrics found
+ * The components for Foobar2000 "Open Lyrics" and "Run Services";
+ * Open Lyrics must be configured to save to a tag the lyrics found;
+ * This module was developed on Node v22.
  * 
  * Author: Thorn Duke
  * Version: 1.1.1
  * Creation Date: 2025-10-15
  */
 
-const { exec, spawn } = require('node:child_process');
+const { exec } = require('node:child_process');
 const { browseAlert } = require('./helper/browsealert')
 const { labels } = require('./helper/labels')
 
@@ -89,11 +90,20 @@ if (processedLines[0].toLowerCase() === '[instrumental]') {
   process.exit(1);
 }
 
+if (
+  (processedLines[0].trimStart().startsWith('作词') &&
+    processedLines[1].trimStart().startsWith('作曲')) ||
+  (processedLines[0].trimStart().startsWith('此歌曲为没有填词的纯音乐'))
+) {
+  browseAlert(getAlertParam(titolo, artista, album, labels.html.noLyrics))
+  process.exit(1);
+}
+
 const encodedText = encodeURIComponent(processedLines.join('\n'));
 
 const url = `https://translate.google.com/?hl=it&sl=auto&tl=it&text=${encodedText}&op=translate`;
 
-const command = `start "" "${url}"`;
+const command = `start /B "" "${url}"`;
 
 exec(command, (error) => {
   if (error) {

@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { bauhausStyle } = require('./css_styles');
+const styles = require('./css_styles');
 const { labels } = require('./labels');
 
 function escaped(str) {
@@ -25,16 +25,16 @@ function browseAlert(msg) {
   <meta charset="UTF-8">
   <title>Notification</title>
   <style>
-    ${bauhausStyle}
+    ${styles.schieleDarkStyle}
   </style>
 </head>
 <body>
-  <div>
-    <p>Track: <b>${titolo}</b></p>
-    <p>Artist: <b>${artista}</b></p>
-    <p>Album: <b>${album}</b></p>
-    <p></p>
-    <p>${messaggio}</p>
+  <div id="container">
+    <p class="tag" id="title">Track: <b>${titolo}</b></p>
+    <p class="tag" id="artist">Artist: <b>${artista}</b></p>
+    <p class="tag" id="album">Album: <b>${album}</b></p>
+    <p class="splitter"></p>
+    <p id="message">${messaggio}</p>
   </div>
 </body>
 </html>

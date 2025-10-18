@@ -1,1 +1,0 @@
-node C:\Users\User\Documents\FB2K\fb2kscripts\interpreted\gtc.js '<title>'$if(%title%,$trim(%title%),)'</title>''<artist>'$if(%artist%,$stripprefix($trim(%artist%),'The'),)'</artist>''<album>'$if(%album%,$trim(%album%),)'</album>''<lyrics>'$if3($meta(LYRICS),$meta(SYNCEDLYRICS),$meta(UNSYNCEDLYRICS),$meta(UNSYNCED LYRICS),)'</lyrics>'
