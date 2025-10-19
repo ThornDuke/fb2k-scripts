@@ -43,7 +43,7 @@ function createHTMLPage(msg, style) {
   return htmlContent;
 }
 
-function browseAlert(msg) {
+function logToBrowser(msg) {
   const tempDir = os.tmpdir();
   const tempFile = path.join(tempDir, `notify_${Date.now()}.html`);
   const htmlPage = createHTMLPage(msg, styles.rothkoDarkStyle)
@@ -67,5 +67,5 @@ function browseAlert(msg) {
 }
 
 module.exports = {
-  browseAlert
+  logToBrowser
 }

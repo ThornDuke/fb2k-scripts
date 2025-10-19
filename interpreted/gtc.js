@@ -10,7 +10,7 @@
  * 2. Tags are detected and splitted here
  * 3. if there are no lyrics, it is communicated to the user by
  *    opening a page html and the script stops
- * 4. if there are lyrics they aresent to Google Translate and the
+ * 4. if there are lyrics they are sent to Google Translate and the
  *    page is shown in the browser
  * 
  * Dependencies:
@@ -24,7 +24,7 @@
  */
 
 const { exec } = require('node:child_process');
-const { browseAlert } = require('./helper/browsealert')
+const { logToBrowser } = require('./helper/logtobrowser')
 const { labels } = require('./helper/labels')
 
 function getAlertParam(title, artist, album, message) {
@@ -74,27 +74,31 @@ function extractLyrics(tags) {
     .filter(line => line.length > 0);
 
   if (processedLines.length === 0) {
-    browseAlert(getAlertParam(titolo, artista, album, labels.html.noValidLines))
+    logToBrowser(getAlertParam(titolo, artista, album, labels.html.noValidLines))
     hasLyrics = false;
   }
 
   if (processedLines[0].toLowerCase() === '[instrumental]') {
-    browseAlert(getAlertParam(titolo, artista, album, labels.html.instrumentalTrack))
+    logToBrowser(getAlertParam(titolo, artista, album, labels.html.instrumentalTrack))
     hasLyrics = false;
   }
 
   if (processedLines[0].toLowerCase() === ('[non-lyrical vocals]')) {
-    browseAlert(getAlertParam(titolo, artista, album, labels.html.nonLyricalVocals))
+    logToBrowser(getAlertParam(titolo, artista, album, labels.html.nonLyricalVocals))
     hasLyrics = false;
   }
 
   if (
-    (processedLines[0].trimStart().startsWith('作词') &&
-      processedLines[1].trimStart().startsWith('作曲')) ||
-    (processedLines[0].trimStart().startsWith('此歌曲为没有填词的纯音乐')) ||
-    (processedLines[1].trim().startsWith('纯音乐，请欣赏'))
+    (
+      (processedLines.length <= 2) &&
+      (
+        (processedLines.join(' ').includes('作曲')) ||
+        (processedLines.join(' ').includes('作词')) ||
+        (processedLines.join(' ').includes('此歌曲为没有填词的纯音乐')) || (processedLines.join(' ').includes('纯音乐，请欣赏'))
+      )
+    )
   ) {
-    browseAlert(getAlertParam(titolo, artista, album, labels.html.noLyrics))
+    logToBrowser(getAlertParam(titolo, artista, album, labels.html.noLyrics))
     hasLyrics = false;
   }
 
