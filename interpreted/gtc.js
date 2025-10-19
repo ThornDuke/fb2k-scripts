@@ -11,7 +11,9 @@
  * 3. if there are no lyrics, it is communicated to the user by
  *    opening a page html and the script stops
  * 4. if there are lyrics they are sent to Google Translate and the
- *    page is shown in the browser
+ *    page is shown in the browser. In order to analyze the
+ *    frequency of use of the component, the operation log is saved
+ *    in a specific file.
  * 
  * Dependencies:
  * The components for Foobar2000 "Open Lyrics" and "Run Services";
@@ -26,6 +28,8 @@
 const { exec } = require('node:child_process');
 const { logToBrowser } = require('./helper/logtobrowser')
 const { labels } = require('./helper/labels')
+const { logSendingChars } = require('./helper/logsendingchars')
+const { splitByTags } = require('./helper/splitbytags')
 
 function getAlertParam(title, artist, album, message) {
   return {
@@ -34,31 +38,6 @@ function getAlertParam(title, artist, album, message) {
     album: album,
     messaggio: message
   }
-}
-
-function getSection(blob, section) {
-  const startSection = `<${section}>`;
-  const endSection = `</${section}>`;
-  const re = new RegExp(startSection + '(.*?)' + endSection, 's');
-  const match = blob.match(re)
-  const result = match ? match[1] : '';
-  return result;
-}
-
-function splitByTags(blob) {
-  const titleBunch = getSection(blob, 'title')
-  const artistBunch = getSection(blob, 'artist')
-  const albumBunch = getSection(blob, 'album')
-  const lyricsBunch = getSection(blob, 'lyrics')
-
-  const result = {
-    titolo: titleBunch,
-    artista: artistBunch,
-    album: albumBunch,
-    liriche: lyricsBunch
-  }
-
-  return result
 }
 
 function extractLyrics(tags) {
@@ -124,5 +103,6 @@ const lyrics = extractLyrics(args.join(' '))
 if (!lyrics) {
   process.exit(1)
 } else {
+  logSendingChars(args.join(' '))
   showTranslatedLyrics(lyrics)
 }

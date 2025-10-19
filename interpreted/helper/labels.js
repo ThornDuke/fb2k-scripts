@@ -7,7 +7,8 @@ const labels = {
   },
   errors: {
     browserOpening: "Error opening browser",
-    notification: "Error opening the notification page"
+    notification: "Error opening the notification page",
+    jsonParsing: "Error parsing JSON file:"
   }
 }
 
