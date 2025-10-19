@@ -1,4 +1,17 @@
-const rothkoLightStyle = `
+/**
+ * @constant {string} rothkoLight
+ * @description
+ * Contiene uno stile CSS ispirato ai campi di colore di Mark Rothko, con una combinazione di colori caldi e sfumature che richiamano l'arte astratta.
+ * 
+ * Lo stile definisce:
+ * - Il corpo della pagina con uno sfondo neutro e testo scuro morbido.
+ * - Un contenitore principale (div#container) con un colore borgogna scuro, ombre sfumate e una leggera rotazione per un effetto artistico.
+ * - Paragrafi stilizzati con testo leggero e spaziatura ben calibrata.
+ * - Un blocco separatore (`p.splitter`) di colore giallo-arancio caldo, con effetto sfumato e posizionamento asimmetrico.
+ * - Elementi in grassetto (`b`) con un colore chiaro e peso leggermente aumentato per risaltare senza essere invasivi.
+ * - Un messaggio finale (`p#message`) stilizzato come didascalia in corsivo con una linea tratteggiata superiore.
+ */
+const rothkoLight = `
 /* Stile ispirato ai campi di colore di Mark Rothko */
 
 body {
@@ -77,9 +90,22 @@ p#message {
     padding-top: 10px;
     border-top: 1px dashed rgba(255, 255, 255, 0.3); /* Linea sottile come un segno su tela */
 }
-`
+`;
 
-const rothkoDarkStyle = `
+/**
+ * @constant {string} rothkoDark
+ * @description
+ * Contiene uno stile CSS ispirato ai campi di colore di Mark Rothko, nella versione a tema scuro.
+ * 
+ * Lo stile definisce:
+ * - Il corpo della pagina con uno sfondo scuro profondo e testo chiaro morbido.
+ * - Un contenitore principale (div#container) con un colore blu-viola intenso, ombre sfumate e una leggera rotazione per un effetto artistico.
+ * - Paragrafi con testo leggero e spaziatura ben calibrata.
+ * - Un blocco separatore (`p.splitter`) arancione bruciato saturo, posizionato asimmetricamente a sinistra, con effetto sfumato.
+ * - Elementi in grassetto (`b`) con un colore arancio/crema chiaro per risaltare delicatamente.
+ * - Un messaggio finale (`p#message`) stilizzato come didascalia in corsivo con una linea tratteggiata superiore più evidente.
+ */
+const rothkoDark = `
 /* Stile ispirato ai campi di colore di Mark Rothko - Tema Scuro */
 
 body {
@@ -158,9 +184,23 @@ p#message {
     padding-top: 10px;
     border-top: 1px dashed rgba(255, 255, 255, 0.5); 
 }
-`
+`;
 
-const rothkoDarkStyleSimple = `
+/**
+ * @constant {string} rothkoDarkSimple
+ * @description
+ * Contiene uno stile CSS ispirato a un tema scuro semplice con sfumature morbide e gradienti,
+ * mantenendo un'atmosfera elegante e minimale ispirata a Mark Rothko.
+ * 
+ * Lo stile definisce:
+ * - Resetta margini, padding e box-sizing per tutti gli elementi.
+ * - Il corpo della pagina con un gradiente verticale scuro, centrando il contenuto con flexbox.
+ * - Un contenitore principale (div#container) con un gradiente diagonale scuro, padding generoso, bordi arrotondati e ombre delicate, per un effetto tridimensionale.
+ * - Paragrafi con testo chiaro, dimensione e spaziatura ben bilanciate.
+ * - Un messaggio finale (`p#message`) separato con una linea sottile, colore più tenue e font leggermente più piccolo.
+ * - Elementi in grassetto (`b`) con colore chiaro, peso medio-alto, dimensione maggiore e un'ombra testo per farli risaltare delicatamente.
+ */
+const rothkoDarkSimple = `
 * {
   margin: 0;
   padding: 0;
@@ -220,9 +260,23 @@ b {
   font-size: 20px;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}`
+}
+`;
 
-const bauhausStyle = `
+/**
+ * @constant {string} bauhaus
+ * @description
+ * Contiene uno stile CSS ispirato al design Bauhaus in modalità dark.
+ * 
+ * Lo stile definisce:
+ * - Il corpo della pagina con sfondo scuro e testo chiaro, centrando il contenuto con flexbox.
+ * - Un contenitore principale (div#container) con sfondo grigio scuro, bordo bianco spesso e ombra netta spostata, che richiama la geometria e la pulizia Bauhaus.
+ * - Paragrafi con testo maiuscolo, spaziatura tra le lettere e dimensione leggermente maggiore per un aspetto tecnico.
+ * - Un separatore (`p.splitter`) come linea sottile rossa, metà larghezza, a richiamare i colori primari Bauhaus.
+ * - Testo in grassetto (`b`) ciano brillante, visualizzato su blocco e con dimensioni maggiorate per enfatizzare i dati.
+ * - Un messaggio finale (`p#message`) in corsivo, con bordo verde laterale come accento e padding interno.
+ */
+const bauhaus = `
 /* Stili Bauhaus Dark Mode */
 body {
   /* Sfondo scuro per il tema dark */
@@ -286,9 +340,23 @@ p#message {
     border-left: 5px solid #00ff00; /* Bordo laterale come accento */
     padding-left: 10px;
 }
-`
+`;
 
-const vedovaDarkStyle = `
+/**
+ * @constant {string} vedovaDark
+ * @description
+ * Stile CSS ispirato all'artista Emilio Vedova, tema dark.
+ * 
+ * Caratteristiche principali:
+ * - Corpo della pagina con sfondo scuro e texture a strisce diagonali sottili in rosso e bianco, che richiamano l’espressionismo astratto di Vedova.
+ * - Effetto decorativo con pseudo-elemento ::before sul body, con gradienti rossi e bianchi inclinati.
+ * - Contenitore principale (div#container) con sfondo sfumato scuro, bordi rossi e bianchi sottili, ombre e una leggera rotazione per dinamismo.
+ * - Pseudo-elementi ::before e ::after sul contenitore per aggiungere forme geometriche trasparenti e linee inclinate, richiamando la complessità compositiva di Vedova.
+ * - Paragrafi con testo chiaro, spaziatura e leggero movimento orizzontale alternato per un effetto vibrante.
+ * - Messaggio finale (p#message) con bordo superiore rosso scuro, stile corsivo e colori più tenui.
+ * - Elementi in grassetto (b) con testo bianco, maiuscolo, con ombre di testo rosse e nere per profondità e impatto visivo.
+ */
+const vedovaDark = `
 * {
   margin: 0;
   padding: 0;
@@ -406,9 +474,34 @@ b {
     -1px -1px 0 rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
 }
-`
+`;
 
-const fontanaStyle = `
+/**
+ * @constant {string} fontana
+ * @description
+ * Stile CSS ispirato a Lucio Fontana, in particolare alla sua serie "Concetti spaziali".
+ * 
+ * Il design evoca l’intervento materico e spaziale tipico delle opere tagliate di Fontana,
+ * attraverso giochi di luce, profondità, gradienti e un “taglio visivo” centrale.
+ * 
+ * Caratteristiche principali:
+ * - **Body**: sfondo animato in gradienti profondi e oscuri con animazione `mysticalShift`,
+ *   simula una superficie spaziale viva e dinamica.
+ * - **Effetti di luce**: pseudo-elemento `body::before` con gradienti radiali in movimento
+ *   (animazione `rotate`) richiama i riflessi e le luci filtrate attraverso lo spazio tagliato.
+ * - **Contenitore principale (`#container`)**: pannello centrale con effetto vetro (blur),
+ *   ombre colorate viola e bordo sottile ispirato alla luce che fuoriesce dal taglio.
+ * - **Elemento decorativo centrale (`#container::before`)**: sottile linea verticale colorata
+ *   e animata (`slashPulse`), simbolico "taglio" spaziale al centro del blocco, in riferimento diretto
+ *   ai famosi squarci di Fontana.
+ * - **Tipografia**: tag stilizzati con colori fluo, luci soffuse e testo evidenziato.
+ * - **Divider (`.splitter`)**: riga luminosa centrale, decorativa e atmosferica.
+ * - **Messaggio finale (`#message`)**: testo chiaro con ombre nere e leggerezza visiva,
+ *   evocando il contrasto tra materia e vuoto.
+ * 
+ * Il risultato è un’interfaccia visiva astratta, tridimensionale e contemplativa.
+ */
+const fontana = `
 * {
   margin: 0;
   padding: 0;
@@ -524,9 +617,40 @@ body::before {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   letter-spacing: 0.3px;
 }
-`
+`;
 
-const schieleLightStyle = `
+/**
+ * @constant {string} schieleLight
+ * @description
+ * Stile CSS ispirato all’estetica e ai colori drammatici di **Egon Schiele**, in una versione "light".
+ * 
+ * Lo stile evoca i toni terrosi, i contrasti netti e il senso di inquietudine delle opere di Schiele,
+ * trasportandoli in una composizione visiva per il web dal forte impatto atmosferico e cromatico.
+ * 
+ * Caratteristiche principali:
+ * 
+ * - **Body**: sfondo animato con toni caldi e intensi (ocra, terra di Siena, rame), che ricreano
+ *   il senso materico e vibrante delle tele di Schiele. Pattern diagonali semitrasparenti sovrapposti
+ *   richiamano la pennellata grezza e stratificata.
+ * 
+ * - **Contenitore (`#container`)**:
+ *   - Base scura a contrasto, con riflessi interni e ombre dorate.
+ *   - Animazione "pulse" per un leggero respiro visivo, come una figura tesa pronta a muoversi.
+ *   - Contorno multiplo dorato/bronzo, che riflette la raffinatezza decorativa di certi dettagli klimtiani
+ *     (da cui Schiele ha tratto ispirazione, pur distanziandosene).
+ * 
+ * - **Decorazioni**:
+ *   - `#container::before`: cornice sfumata e animata che ruota lentamente, suggerendo instabilità o tensione.
+ *   - `.splitter`: linea divisoria con sfumature rosso oro, drammatica e teatrale.
+ * 
+ * - **Tipografia**:
+ *   - `.tag`: maiuscole, ombreggiate, colori oro/arancio con accenti rosso sangue.
+ *   - `#message`: testo chiaro con ombre forti, per evocare drammaticità e introspezione.
+ * 
+ * Esteticamente, il tema si posiziona tra eleganza decadente e tensione emotiva, in linea con
+ * il linguaggio pittorico e psicologico tipico dell'opera di Egon Schiele.
+ */
+const schieleLight = `
 * {
   margin: 0;
   padding: 0;
@@ -643,9 +767,43 @@ body::before {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-`
+`;
 
-const schieleDarkStyle = `
+/**
+ * @constant {string} schieleDark
+ * @description
+ * Tema CSS dark ispirato a **Egon Schiele**, dove l'espressività tormentata e i contrasti cromatici
+ * diventano un’interfaccia digitale. La palette notturna, le sfumature viola e le texture diagonali evocano
+ * le tensioni psicologiche e le deformazioni espressive della pittura schieleana, trasposte nel contesto visivo
+ * di una UI moderna e dinamica.
+ * 
+ * Caratteristiche principali:
+ * 
+ * - **Sfondo del body**:
+ *   - Griglia diagonale animata in toni freddi e cupi (blu notte, viola, nero profondo).
+ *   - Gradiente pulsante e texture incrociate richiamano i fondali spezzati e gli spazi instabili dei ritratti di Schiele.
+ * 
+ * - **Contenitore (`#container`)**:
+ *   - Combinazione di gradienti verticali in blu profondo e nero.
+ *   - Ombre intense con animazione "pulse" che simula il respiro emotivo delle figure schieleane.
+ *   - Bordatura fluorescente ispirata ai contorni vibranti e taglienti dei corpi nelle sue opere.
+ * 
+ * - **Tipografia (`.tag`, `#message`)**:
+ *   - Toni violetti luminosi su fondo scuro, con ombre accentuate.
+ *   - Lettere maiuscole, spaziatura ampia e peso marcato: evocano urgenza, disagio e controllo formale.
+ * 
+ * - **Divider animato (`.splitter`)**:
+ *   - Linea centrale con animazione "slide" che percorre la superficie come una fenditura luminosa.
+ *   - Sottolinea la tensione e il dinamismo tipici della composizione schieleana.
+ * 
+ * - **Cornice (`#container::before`)**:
+ *   - Bagliore viola fluttuante e sfocato, animato in rotazione lenta.
+ *   - Ricorda l'alone emotivo e psicologico che avvolge le figure in molte opere dell’artista.
+ * 
+ * Questo tema comunica introspezione, tensione e presenza, interpretando la poetica di Schiele
+ * con un’estetica dark digitalizzata e suggestiva.
+ */
+const schieleDark = `
 * {
   margin: 0;
   padding: 0;
@@ -791,9 +949,54 @@ body::before {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-`
+`;
 
-const michelStyle = `
+/**
+ * @constant {string} michel
+ * @description
+ * Tema CSS che evoca l'estetica del Rinascimento italiano, ispirato all'opera
+ * e allo spirito di **Michelangelo Buonarroti**. I toni terrosi, dorati e
+ * marmorei richiamano gli affreschi della Cappella Sistina e le sculture
+ * monumentali del maestro, mentre le animazioni lente e solenni conferiscono
+ * un senso di maestosità classica.
+ *
+ * Caratteristiche principali:
+ *
+ * - **Body**:
+ *   - Gradiente caldo e brunito che richiama la patina delle antiche superfici
+ *     pittoriche.
+ *   - Texture radiali leggere e sfumate che ricordano il chiaroscuro del
+ *     Buonarroti.
+ *   - Animazione "mysticalGradient" lenta e cerimoniale.
+ *
+ * - **Contenitore (`#container`)**:
+ *   - Combinazione di marroni profondi e ombre dorate, simili a legno antico o
+ *     bronzo brunito.
+ *   - Bordo dorato semitrasparente, incorniciato da un bagliore animato che
+ *     trasmette un'aura di sacralità.
+ *   - Effetto "glassato" con blur delicato, che richiama la perfezione liscia
+ *     del marmo scolpito.
+ *
+ * - **Testo (`.tag`, `#message`)**:
+ *   - Tipografia serif classica, in toni sabbia e oro pallido.
+ *   - Text-shadow profondo per enfatizzare tridimensionalità e luce ambientale.
+ *   - Il messaggio centrale è in *corsivo*, evocando l’eleganza della
+ *     scrittura umanistica.
+ *
+ * - **Splitter**:
+ *   - Linea orizzontale dorata sfumata, come incisione ornamentale su un
+ *     monumento.
+ *   - Glow dorato che rafforza la separazione visiva con grazia.
+ *
+ * - **Cornice (`#container::before`)**:
+ *   - Glow rotante in trasparenza dorata che pulsa come una luce sacra attorno
+ *     a un’opera divina.
+ *
+ * Questo stile riflette la grandezza monumentale e la tensione interiore
+ * tipica di Michelangelo, fondendo classicismo, spiritualità e potenza formale
+ * con sensibilità rinascimentale.
+ */
+const michel = `
 * {
   margin: 0;
   padding: 0;
@@ -918,8 +1121,20 @@ body::before {
 }
 `
 
-const warholLightStyle = `
-
+/**
+ * @constant {string} warholLight
+ * @description
+ * Tema ispirato a **Andy Warhol**, con una palette cromatica vivace e contrastata che richiama la
+ * Pop Art americana. Lo sfondo dinamico e i colori saturi omaggiano l’uso della serigrafia e del colore
+ * piatto e ripetuto. Il layout è stato reso più leggibile, mantenendo una forte identità visiva.
+ *
+ * - Font principale: 'Impact', per evocare titoli audaci e pubblicitari.
+ * - Colori fluo: rosa shocking, giallo evidenziatore, ciano e magenta per rievocare le tinte CMYK.
+ * - Bordature nere e pattern ripetuti: stile fumetto e poster pop anni '60.
+ * - Migliorata la leggibilità del testo (meno rotazioni, meno effetto 'mosso').
+ * - Effetti visivi decisi ma leggibili, pensati per un impatto visivo forte ma accessibile.
+ */
+const warholLight = `
 * {
   margin: 0;
   padding: 0;
@@ -960,11 +1175,12 @@ body {
   box-shadow: 
     0 0 0 4px #fff,
     0 0 0 8px #000,
-    12px 12px 0 0 rgba(0, 0, 0, 0.5);
+    12px 12px 0 0 rgba(0, 0, 0, 0.4);
   padding: 40px;
   max-width: 600px;
+  width: 100%;
   position: relative;
-  transform: rotate(-1deg);
+  border-radius: 2px;
 }
 
 #container::before {
@@ -974,7 +1190,7 @@ body {
   left: 10px;
   right: 10px;
   bottom: 10px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   z-index: 1;
 }
 
@@ -984,15 +1200,15 @@ body {
 }
 
 .tag {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-shadow: 
-    3px 3px 0 #00ffff,
+    2px 2px 0 #00ffff,
     -2px -2px 0 #ff00ff,
-    2px -2px 0 #ffff00;
+    1px -1px 0 #ffff00;
   color: #000;
 }
 
@@ -1019,30 +1235,45 @@ body {
   );
   margin: 25px 0;
   border: 3px solid #000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 #message {
-  font-family: 'Courier New', 'Courier', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #000;
   font-weight: bold;
   background: linear-gradient(90deg, 
-    rgba(255,0,110,0.3) 0%, 
-    rgba(251,86,7,0.3) 33%, 
-    rgba(131,56,236,0.3) 66%, 
-    rgba(58,134,255,0.3) 100%);
+    rgba(255,0,110,0.2) 0%, 
+    rgba(251,86,7,0.2) 33%, 
+    rgba(131,56,236,0.2) 66%, 
+    rgba(58,134,255,0.2) 100%);
   padding: 20px;
   border: 4px dashed #000;
   text-shadow: 1px 1px 0 #fff;
+  border-radius: 4px;
 }
 
 b {
   font-weight: 900;
 }
-`
+`;
 
-const warholDarkStyle = `
+/**
+ * @constant {string} warholDark
+ * @description
+ * Tema ispirato ad **Andy Warhol** nella versione dark, con una palette di colori al neon su fondo scuro,
+ * richiamando l’estetica Pop Art con contrasti forti e colori saturi.
+ * 
+ * Caratteristiche principali:
+ * - Font 'Impact' e simili per titoli forti e decisi.
+ * - Sfondo animato a gradienti viola/blu scuri.
+ * - Contenitore con pattern a righe diagonali colorate neon.
+ * - Testi con ombre colorate, ma attenuate per maggiore leggibilità.
+ * - Rimosso l'effetto di rotazione per evitare distorsione e migliorare la fruibilità.
+ */
+const warholDark = `
 * {
   margin: 0;
   padding: 0;
@@ -1083,12 +1314,14 @@ body {
   box-shadow: 
     0 0 0 4px #000,
     0 0 0 8px #ff00ff,
-    12px 12px 0 0 rgba(255, 0, 255, 0.5),
-    0 0 30px rgba(0, 255, 255, 0.6);
+    10px 10px 0 0 rgba(255, 0, 255, 0.4),
+    0 0 25px rgba(0, 255, 255, 0.5);
   padding: 40px;
   max-width: 600px;
+  width: 100%;
   position: relative;
-  transform: rotate(-1deg);
+  border-radius: 3px;
+  /* transform: rotate(-1deg); */ /* rimosso per migliore leggibilità */
 }
 
 #container::before {
@@ -1100,6 +1333,7 @@ body {
   bottom: 10px;
   background: #0a0a0a;
   z-index: 1;
+  border-radius: 2px;
 }
 
 #container > * {
@@ -1108,32 +1342,32 @@ body {
 }
 
 .tag {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.7px;
   text-shadow: 
-    3px 3px 0 #00ffff,
-    -2px -2px 0 #ff00ff,
-    2px -2px 0 #ffff00,
-    0 0 10px rgba(255, 0, 255, 0.8);
+    2px 2px 0 #00ffff,
+    -1.5px -1.5px 0 #ff00ff,
+    1.5px -1.5px 0 #ffff00,
+    0 0 8px rgba(255, 0, 255, 0.7);
   color: #fff;
 }
 
 #title b {
   color: #ff0080;
-  text-shadow: 0 0 20px #ff0080;
+  text-shadow: 0 0 15px #ff0080;
 }
 
 #artist b {
   color: #00ffff;
-  text-shadow: 0 0 20px #00ffff;
+  text-shadow: 0 0 15px #00ffff;
 }
 
 #album b {
   color: #ffff00;
-  text-shadow: 0 0 20px #ffff00;
+  text-shadow: 0 0 15px #ffff00;
 }
 
 .splitter {
@@ -1148,42 +1382,43 @@ body {
   margin: 25px 0;
   border: 3px solid #00ff00;
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+  border-radius: 3px;
 }
 
 #message {
   font-family: 'Courier New', 'Courier', monospace;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #fff;
   font-weight: bold;
   background: linear-gradient(90deg, 
-    rgba(255,0,128,0.3) 0%, 
-    rgba(0,255,255,0.3) 33%, 
-    rgba(255,255,0,0.3) 66%, 
-    rgba(255,0,255,0.3) 100%);
+    rgba(255,0,128,0.25) 0%, 
+    rgba(0,255,255,0.25) 33%, 
+    rgba(255,255,0,0.25) 66%, 
+    rgba(255,0,255,0.25) 100%);
   padding: 20px;
   border: 4px dashed #00ff00;
   text-shadow: 
     1px 1px 0 #000,
-    0 0 10px rgba(0, 255, 255, 0.8);
+    0 0 8px rgba(0, 255, 255, 0.7);
+  border-radius: 4px;
 }
 
 b {
   font-weight: 900;
 }
-`
+`;
 
 module.exports = {
-  rothkoLightStyle,
-  rothkoDarkStyle,
-  rothkoDarkStyleSimple,
-  bauhausStyle,
-  vedovaDarkStyle,
-  fontanaStyle,
-  schieleLightStyle,
-  schieleDarkStyle,
-  michelStyle,
-  warholLightStyle,
-  warholDarkStyle
+  rothkoLight,
+  rothkoDark,
+  rothkoDarkSimple,
+  bauhaus,
+  vedovaDark,
+  fontana,
+  schieleLight,
+  schieleDark,
+  michel,
+  warholLight,
+  warholDark
 }
-

@@ -1,17 +1,24 @@
+/**
+ * Labels and messages used throughout the application for
+ * user feedback, error handling, and HTML rendering.
+ *
+ * This object provides internationalized strings and constant
+ * labels used by other modules.
+ */
 const labels = {
   html: {
-    noLyrics: "This song contains no lyrics",
-    noValidLines: "This track has no lyrics tag",
-    instrumentalTrack: "This song is an instrumental",
-    nonLyricalVocals: "This song contains non-lyrical vocals"
+    noValidLines: 'No valid lyrics lines found.',
+    instrumentalTrack: 'Instrumental track. No lyrics to translate.',
+    nonLyricalVocals: 'Track contains non-lyrical vocals only.',
+    noLyrics: 'No lyrics available for this track.'
   },
   errors: {
-    browserOpening: "Error opening browser",
-    notification: "Error opening the notification page",
-    jsonParsing: "Error parsing JSON file:"
+    jsonParsing: 'Error parsing JSON file:',
+    browserOpening: 'Could not open browser window',
+    notification: 'Could not show HTML notification page'
   }
-}
+};
 
 module.exports = {
   labels
-}
+};

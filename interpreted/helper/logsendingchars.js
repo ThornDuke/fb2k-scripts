@@ -5,18 +5,36 @@ const { splitByTags } = require('./splitbytags');
 
 const LOG_FILE_PATH = path.join(__dirname, 'chars_log.json');
 
-// Aggiunge un certo numero di giorni a una data
+/**
+ * Adds a number of days to a date.
+ *
+ * @param {Date} date - The base date.
+ * @param {number} days - Number of days to add.
+ * @returns {Date} The new date.
+ */
 function addDays(date, days) {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
 }
 
-// Aggiunge un secondo a una data
+/**
+ * Adds seconds to a date.
+ *
+ * @param {Date} date - The base date.
+ * @param {number} seconds - Number of seconds to add.
+ * @returns {Date} The new date.
+ */
 function addSeconds(date, seconds) {
   return new Date(date.getTime() + seconds * 1000);
 }
 
+/**
+ * Logs the number of characters in the lyrics of a track into a monthly
+ * log file.
+ *
+ * @param {string} blob - The full input string containing metadata and lyrics.
+ */
 function logSendingChars(blob) {
   const now = new Date();
   const entry = splitByTags(blob);
@@ -32,7 +50,7 @@ function logSendingChars(blob) {
     }
   }
 
-  // Trova un blocco esistente che contiene `now`
+  // Find a log block that includes "now"
   let currentMonthLog = logData.find(log => {
     const start = new Date(log.startmonth);
     const end = new Date(log.endmonth);
@@ -52,8 +70,7 @@ function logSendingChars(blob) {
     currentMonthLog.totalChars += lyricsCharsQty;
     currentMonthLog.log.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
   } else {
-    // Nessun blocco contiene `now` → creare un nuovo blocco
-    // Calcola lo startmonth come endmonth + 1s del blocco più recente
+    // Create a new block
     const lastBlock = logData.length > 0
       ? logData.reduce((latest, block) =>
         new Date(block.endmonth) > new Date(latest.endmonth) ? block : latest
@@ -69,11 +86,10 @@ function logSendingChars(blob) {
     const startmonth = startDate.toISOString();
     const endmonth = endDate.toISOString();
 
-    // ID univoco basato sul datestamp
-    const monthId = `${Date.now().toString(26)}`;
+    const id = `${Date.now().toString(36)}`;
 
     currentMonthLog = {
-      id: monthId,
+      id,
       startmonth,
       endmonth,
       log: [newLogEntry],
@@ -83,7 +99,7 @@ function logSendingChars(blob) {
     logData.push(currentMonthLog);
   }
 
-  // Ordina tutti i blocchi per startmonth
+  // Sort log blocks by start date
   logData.sort((a, b) => new Date(a.startmonth) - new Date(b.startmonth));
 
   fs.writeFileSync(LOG_FILE_PATH, JSON.stringify(logData, null, 2), 'utf8');

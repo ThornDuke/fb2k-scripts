@@ -1,27 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
-const filename = `gtl-${Number(Date.now()).toString(36)}.log`
+// Generate a unique filename using base-36 timestamp
+const filename = `gtl-${Number(Date.now()).toString(36)}.log`;
 
-// Definisce il percorso del file di log nella stessa directory dello script
+// Path to the log file in the current script's directory
 const LOG_FILE = path.join(path.dirname(process.argv[1]), filename);
 
 /**
- * Funzione per scrivere un messaggio sul file di log
- * @param {string} message Il messaggio da scrivere.
+ * Appends a message to a log file with a timestamp.
+ *
+ * If the log file does not exist, it is created automatically.
+ *
+ * @param {string} message - The message to write to the log.
  */
 function logToFile(message) {
   const timestamp = new Date().toISOString();
   const logMessage = `[${timestamp}] ${message}\n`;
 
-  // Scrive su file, aggiungendo (append) il contenuto
   try {
     fs.appendFileSync(LOG_FILE, logMessage);
   } catch (err) {
-    console.error(`Errore critico nella scrittura del file di log (${LOG_FILE}): ${err.message}`);
+    console.error(`Critical error writing to log file (${LOG_FILE}): ${err.message}`);
   }
 }
 
 module.exports = {
   logToFile
-}
+};

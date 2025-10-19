@@ -5,18 +5,37 @@ const os = require('os');
 const styles = require('./css_styles');
 const { labels } = require('./labels');
 
+/**
+ * Escapes backslashes, quotes, and line breaks in a string.
+ *
+ * @param {string} str - The string to escape.
+ * @returns {string} Escaped string.
+ */
 function escaped(str) {
   const result = str
-    .replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n')
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, '\\n')
     .trim();
   return result;
 }
 
+/**
+ * Creates an HTML page as a string using the given message data and style.
+ *
+ * @param {Object} msg - The message object containing metadata and message.
+ * @param {string} msg.titolo - Track title.
+ * @param {string} msg.artista - Track artist.
+ * @param {string} msg.album - Track album.
+ * @param {string} msg.messaggio - Message to show.
+ * @param {string} style - CSS style to apply.
+ * @returns {string} HTML content as a string.
+ */
 function createHTMLPage(msg, style) {
   const titolo = escaped(msg.titolo);
   const artista = escaped(msg.artista);
   const album = escaped(msg.album);
-  const messaggio = escaped(msg.messaggio)
+  const messaggio = escaped(msg.messaggio);
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -43,10 +62,17 @@ function createHTMLPage(msg, style) {
   return htmlContent;
 }
 
+/**
+ * Creates a temporary HTML file with the given message and opens it
+ * in the browser.
+ * Automatically deletes the file after 5 seconds.
+ *
+ * @param {Object} msg - Message object (title, artist, album, message).
+ */
 function logToBrowser(msg) {
   const tempDir = os.tmpdir();
   const tempFile = path.join(tempDir, `notify_${Date.now()}.html`);
-  const htmlPage = createHTMLPage(msg, styles.rothkoDarkStyle)
+  const htmlPage = createHTMLPage(msg, styles.rothkoDark);
 
   try {
     fs.writeFileSync(tempFile, htmlPage, 'utf8');
@@ -57,7 +83,7 @@ function logToBrowser(msg) {
       try {
         fs.unlinkSync(tempFile);
       } catch (e) {
-        // Ignora errori di cancellazione
+        // Ignore deletion errors
       }
     }, 5000);
 
@@ -68,4 +94,4 @@ function logToBrowser(msg) {
 
 module.exports = {
   logToBrowser
-}
+};
