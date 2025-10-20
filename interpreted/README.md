@@ -11,7 +11,8 @@ components like **Open Lyrics** and **Run Services**.
 - Parses track metadata and lyrics from a custom tagged string.
 - Filters out instrumental or non-lyrical tracks.
 - Opens Google Translate in the browser with the lyrics preloaded.
-- Logs usage stats (number of characters, track info) into a structured JSON file.
+- Logs usage stats (number of characters, track info) into a structured
+  JSON file.
 - Notifies the user via a temporary HTML page when lyrics are missing.
 
 ## Requirements
@@ -30,7 +31,7 @@ components like **Open Lyrics** and **Run Services**.
 interpreted/
 │
 ├── helper/
-│ ├── chars_log.json      # # Generated at runtime for character logs
+│ ├── chars_log.json      # Generated at runtime for character logs
 │ ├── css_styles.js       # CSS styles for notification HTML
 │ ├── labels.js           # User messages and error labels
 │ ├── logtobrowser.js     # Displays HTML message in browser
