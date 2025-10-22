@@ -15,7 +15,11 @@ const labels = {
   errors: {
     jsonParsing: 'Error parsing JSON file:',
     browserOpening: 'Could not open browser window',
-    notification: 'Could not show HTML notification page'
+    notification: 'Could not show HTML notification page',
+    projectRootNotFound: "The project root could not be found."
+  },
+  console: {
+    projectRootFound: "Project Root Path:"
   }
 };
 

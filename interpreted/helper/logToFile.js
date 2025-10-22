@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const { generateFilename } = require('./utils')
 
-// Generate a unique filename using base-36 timestamp
-const filename = `gtl-${Number(Date.now()).toString(36)}.log`;
+// A unique filename using base-36 timestamp
+const filename = generateFilename('ltf', 'log')
 
 // Path to the log file in the current script's directory
 const LOG_FILE = path.join(path.dirname(process.argv[1]), filename);

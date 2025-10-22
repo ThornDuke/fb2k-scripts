@@ -4,21 +4,7 @@ const path = require('path');
 const os = require('os');
 const styles = require('./css_styles');
 const { labels } = require('./labels');
-
-/**
- * Escapes backslashes, quotes, and line breaks in a string.
- *
- * @param {string} str - The string to escape.
- * @returns {string} Escaped string.
- */
-function escaped(str) {
-  const result = str
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/\n/g, '\\n')
-    .trim();
-  return result;
-}
+const { escaped } = require('./utils')
 
 /**
  * Creates an HTML page as a string using the given message data and style.

@@ -2,32 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { labels } = require('./labels');
 const { splitByTags } = require('./splitbytags');
-
-const LOG_FILE_PATH = path.join(__dirname, 'chars_log.json');
-
-/**
- * Adds a number of days to a date.
- *
- * @param {Date} date - The base date.
- * @param {number} days - Number of days to add.
- * @returns {Date} The new date.
- */
-function addDays(date, days) {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
-/**
- * Adds seconds to a date.
- *
- * @param {Date} date - The base date.
- * @param {number} seconds - Number of seconds to add.
- * @returns {Date} The new date.
- */
-function addSeconds(date, seconds) {
-  return new Date(date.getTime() + seconds * 1000);
-}
+const { findFolderWithFile, addDays, addSeconds } = require('./utils')
 
 /**
  * Logs the number of characters in the lyrics of a track into a monthly
@@ -36,9 +11,18 @@ function addSeconds(date, seconds) {
  * @param {string} blob - The full input string containing metadata and lyrics.
  */
 function logSendingChars(blob) {
+  const logFileName = 'chars_log.json';
   const now = new Date();
   const entry = splitByTags(blob);
   const lyricsCharsQty = entry.liriche.length;
+
+  const projectRoot = findFolderWithFile('gtc.js');
+  if (projectRoot) {
+    console.log(labels.console.projectRootFound, projectRoot);
+  } else {
+    console.log(labels.errors.projectRootNotFound);
+  }
+  const LOG_FILE_PATH = path.join(projectRoot, logFileName);
 
   let logData = [];
   if (fs.existsSync(LOG_FILE_PATH)) {
@@ -57,8 +41,12 @@ function logSendingChars(blob) {
     return now >= start && now <= end;
   });
 
+  // Format current datetime like so:
+  // yyyy-mm-dd hh-mm-ss
+  currDateTime = now.toISOString();
+  datetime = `${currDateTime.split('T')[0]} ${currDateTime.split('T')[1].split('.')[0]}`
   const newLogEntry = {
-    datetime: now.toISOString(),
+    datetime,
     track: entry.titolo,
     artist: entry.artista,
     album: entry.album,
