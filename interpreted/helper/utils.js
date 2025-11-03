@@ -108,11 +108,56 @@ function generateFilename(prefix, extension) {
   return `${prefix}-${Number(Date.now()).toString(36)}.${extension}`
 }
 
+/**
+ * Transforms a string using the ROT13 cipher.
+ * This cipher is its own inverse, meaning applying it twice returns the
+ * original text.
+ * It maintains case sensitivity and ignores non-alphabetic characters
+ * (numbers, spaces, punctuation).
+ *
+ * @param {string} str The string to be encoded or decoded.
+ * @returns {string} The ROT13-transformed string.
+ */
+function rot13(str) {
+
+  // Helper function to get the character rotated by 13 positions
+  const rotateChar = (char, baseCharCode, offset = 13) => {
+    // Gets the ASCII code of the character
+    const charCode = char.charCodeAt(0);
+    // Calculates the 0-based index within the alphabet (A-Z or a-z)
+    const index = charCode - baseCharCode;
+    // Applies the rotation (index + offset) and then modulo 26 to wrap around
+    const rotatedIndex = (index + offset) % 26;
+    // Converts back to ASCII code and then to the character
+    return String.fromCharCode(baseCharCode + rotatedIndex);
+  };
+
+  // Map over each character in the string
+  return str.split('').map(char => {
+    const charCode = char.charCodeAt(0);
+
+    // Handle Uppercase Letters (A=65 to Z=90)
+    if (charCode >= 65 && charCode <= 90) {
+      return rotateChar(char, 65);
+    }
+    // Handle Lowercase Letters (a=97 to z=122)
+    else if (charCode >= 97 && charCode <= 122) {
+      return rotateChar(char, 97);
+    }
+    // For non-alphabetic characters (numbers, punctuation, spaces),
+    // return them unchanged
+    else {
+      return char;
+    }
+  }).join(''); // Join the array of characters back into a single string
+}
+
 module.exports = {
   asObject,
   findFolderWithFile,
   addDays,
   addSeconds,
   escaped,
-  generateFilename
+  generateFilename,
+  rot13
 }

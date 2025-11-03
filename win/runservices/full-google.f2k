@@ -5,11 +5,14 @@
 // Restituisce la stringa da passare alla API di Google per
 // effettuare una ricerca per <Album Artist>+<Album>
 // 
+// Esclude dalla ricerca alcuni siti che vendono dischi ma
+// non pubblicano recensioni
+// 
 // Keybinding: Shift+Ctrl+C
 // Label: Google Artist + Album
 //
 // Author:   Thorn Duke
-// Version:  1.0.2
+// Version:  1.0.3
 // Date:     2025-09-28
 //
 //endsection> frontmatter ============================================
@@ -34,6 +37,24 @@ $puts(
 $puts(
   parameters,
   '&ie=utf-8'
+)
+$puts(
+  excluded_sites,
+  +-site:www.lafeltrinelli.it
+  +-site:www.ebay.it
+  +-site:www.ebay.com
+  +-site:www.amazon.it
+  +-site:www.amazon.com
+  +-site:music.apple.com
+  +-site:open.spotify.com
+  +-site:www.discotecalaziale.com
+  +-site:believe.discotecalaziale.com
+  +-site:www.ibs.it
+  +-site:www.hhv-mag.com
+  +-site:hmv.com
+  +-site:www.tgjonesonline.co.uk
+  +-site:www.musicstore.sm/
+  +-site:audioglobe.it
 )
 //endsection> atoms
 //section> tags normalizing
@@ -89,5 +110,5 @@ $puts(
 //   Costruzione della linea
 //
 // -------------------------------------------------------------------
-$get(service)$get(joinedTarget)$get(parameters)
+$get(service)$get(joinedTarget)$get(excluded_sites)$get(parameters)
 //endsection> line building

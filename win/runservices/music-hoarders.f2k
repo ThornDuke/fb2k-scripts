@@ -37,9 +37,10 @@ $puts(
   resolution,
   1200
 )
+// No more than 9 sources can be active at once
 $puts(
   sources,
-  'amazonmusic,applemusic,bugs,flo,itunes,kkbox,linemusic,qobuz,tidal'
+  'amazonmusic,applemusic,qobuz,tidal,bandcamp,deezer,musicbrainz,spotify,itunes'
 )
 $puts(
   country,

@@ -1,0 +1,60 @@
+// Playlist "HR Reverse"
+
+// === query
+(rating GREATER 2.5) AND (%play_count% LESS 2) AND (NOT %skip% IS y)
+
+// === sort
+// data album - data aggiunta - album artist - album - discnumber - tracknumber
+$puts(
+  album_date,
+  $if3(
+    %original release date%,
+    %originalyear%,
+    %originaldate%,
+    %date%,
+    0
+  )
+)
+$puts(
+  thornian_album_date,
+  $add(
+    $mul(
+      $year($get(album_date)),
+      10000
+    ),
+    $mul(
+      $month($get(album_date)),
+      100
+    ),
+    $day_of_month($get(album_date))
+  )
+)
+$puts(
+  date_added,
+  $date(%added%)
+)
+$puts(
+  thornian_date_added,
+  $add(
+    $mul(
+      $year($get(date_added)),
+      10000
+    ),
+    $mul(
+      $month($get(date_added)),
+      100
+    ),
+    $day_of_month($get(date_added))
+  )
+)
+$get(thornian_album_date)
+-
+$get(thornian_date_added)
+-
+[$stripprefix(%album artist%)]
+-
+[%album%]
+-
+[%discnumber%]
+-
+[%tracknumber%]

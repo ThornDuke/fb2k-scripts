@@ -7,7 +7,7 @@
  * and get a translation.
  *
  * @author Thorn Duke
- * @version 1.1.3
+ * @version 1.1.4
  * @since 2025-10-15
  */
 
@@ -87,7 +87,15 @@ function extractLyrics(tags) {
     .filter(line => line.length > 0);
 
   const hasLyrics = isValidLyrics(processedLines, titolo, artista, album);
-  return hasLyrics ? processedLines : null;
+
+  if (hasLyrics) {
+    if (titolo) {
+      processedLines.unshift(titolo, "");
+    }
+    return processedLines;
+  }
+
+  return null;
 }
 
 /**

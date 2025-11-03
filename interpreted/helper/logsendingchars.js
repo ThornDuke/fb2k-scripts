@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { labels } = require('./labels');
 const { splitByTags } = require('./splitbytags');
-const { findFolderWithFile, addDays, addSeconds } = require('./utils')
+const { findFolderWithFile, addDays, addSeconds, rot13 } = require('./utils')
 
 /**
  * Logs the number of characters in the lyrics of a track into a monthly
@@ -44,8 +44,11 @@ function logSendingChars(blob) {
   // Format current datetime like so:
   // yyyy-mm-dd hh-mm-ss
   currDateTime = now.toISOString();
-  datetime = `${currDateTime.split('T')[0]} ${currDateTime.split('T')[1].split('.')[0]}`
+  datetime = `${currDateTime.split('T')[0]} ${currDateTime.split('T')[1].split('.')[0]}`;
+  // An ID very strange
+  trackId = rot13(Date.now().toString(16));
   const newLogEntry = {
+    id: trackId,
     datetime,
     track: entry.titolo,
     artist: entry.artista,
@@ -54,8 +57,10 @@ function logSendingChars(blob) {
   };
 
   if (currentMonthLog) {
+    const totalCalls = currentMonthLog.log.length + 1;
     currentMonthLog.log.push(newLogEntry);
     currentMonthLog.totalChars += lyricsCharsQty;
+    currentMonthLog.totalCalls = totalCalls;
     currentMonthLog.log.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
   } else {
     // Create a new block
@@ -64,24 +69,21 @@ function logSendingChars(blob) {
         new Date(block.endmonth) > new Date(latest.endmonth) ? block : latest
       )
       : null;
-
     const startDate = lastBlock
       ? addSeconds(new Date(lastBlock.endmonth), 1)
       : now;
-
     const endDate = addDays(startDate, 30);
-
     const startmonth = startDate.toISOString();
     const endmonth = endDate.toISOString();
-
-    const id = `${Date.now().toString(36)}`;
+    const monthId = `${Date.now().toString(36)}`;
 
     currentMonthLog = {
-      id,
+      id: monthId,
       startmonth,
       endmonth,
       log: [newLogEntry],
-      totalChars: lyricsCharsQty
+      totalChars: lyricsCharsQty,
+      totalCalls: 1
     };
 
     logData.push(currentMonthLog);
