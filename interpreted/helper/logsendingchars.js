@@ -57,10 +57,14 @@ function logSendingChars(blob) {
   };
 
   if (currentMonthLog) {
+    const totalChars = currentMonthLog.totalChars + lyricsCharsQty;
     const totalCalls = currentMonthLog.log.length + 1;
+    const averageChars = Math.floor(totalChars / totalCalls);
+
     currentMonthLog.log.push(newLogEntry);
-    currentMonthLog.totalChars += lyricsCharsQty;
+    currentMonthLog.totalChars = totalChars;
     currentMonthLog.totalCalls = totalCalls;
+    currentMonthLog.averageChars = averageChars;
     currentMonthLog.log.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
   } else {
     // Create a new block
@@ -83,7 +87,8 @@ function logSendingChars(blob) {
       endmonth,
       log: [newLogEntry],
       totalChars: lyricsCharsQty,
-      totalCalls: 1
+      totalCalls: 1,
+      averageChars: lyricsCharsQty
     };
 
     logData.push(currentMonthLog);
