@@ -1,0 +1,21 @@
+# Column definition
+---
+Options:
+  Show column: true
+  Title: \*Played
+  Width: 180
+  Auto-size weight: 100
+  Alignment: Left
+  Linked meta field: 
+  Playlist filters:
+    filter: Show on all playlists
+    Value: 
+Display script:
+  text: |-
+    $repeat(*,%play_count%)
+Style script:
+  Use custom style script: false
+  text: |-
+Sorting script:
+  Use custom sorting script: false
+  text: |-

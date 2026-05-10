@@ -48,9 +48,9 @@ $if(
       $rgb(255,255,255)$get(spc)
       $rgb(255,0,0)$meta(red rating)
       $rgb(255,255,255)$get(spc)
-      $rgb(255,255,0)$get(tripleLT)
+      $rgb(255,255,0)$get(tripleGT)
       $rgb(255,255,255),
-      $rgb(255,0,0)$get(tripleGT)
+      $rgb(255,0,0)$get(tripleLT)
       $rgb(255,255,255)$get(spc)
       $rgb(255,255,0)$meta(rating)
       $rgb(255,255,255)$get(spc)

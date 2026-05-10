@@ -14,7 +14,7 @@
 // Version:  1.0.1
 // Date:     2025-09-23
 //
-//endsection> frontmatter =================================================
+//endsection> frontmatter ================================================= 
 //section> atoms
 // -------------------------------------------------------------------
 //
@@ -41,6 +41,10 @@ $puts(
   slash,
   '/'
 )
+$puts(
+  maxlength,
+  25
+)
 //endsection> atoms
 //section> normalizing
 // -------------------------------------------------------------------
@@ -50,14 +54,28 @@ $puts(
 // -------------------------------------------------------------------
 $puts(
   albumArtist,
-  $stripprefix(
-    $ascii($trim(%album artist%)),
-    'the'
+  $trim(
+    $cut(
+      $stripprefix(
+        $ascii(
+          $trim(%album artist%)
+        ),
+        'the'
+      ),
+      $get(maxlength)
+    )
   )
 )
 $puts(
   album,
-  $ascii($trim(%album%))
+  $trim(
+    $cut(
+      $ascii(
+        $trim(%album%)
+      ),
+      $get(maxlength)
+    )
+  )
 )
 $puts(
   series,

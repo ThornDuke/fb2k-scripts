@@ -1,0 +1,25 @@
+# Column definition
+---
+Options:
+  Show column: true
+  Title: \*Mood
+  Width: 180
+  Auto-size weight: 100
+  Alignment: Centre
+  Linked meta field:
+  Playlist filters:
+    filter: Show on all playlists
+    Value: 
+Display script:
+  text: |-
+    $if($stricmp(%MOOD%,nocturnal),$rgb(0,0,255,0,0,255)'[N]'$reset_format())
+    $if($stricmp(%MOOD%,vespertine),$rgb(0,255,255,0,255,255)'[V]'$reset_format())
+    $if($stricmp(%MOOD%,matutinal),$rgb(255,128,0,255,128,0)'[M]'$reset_format())
+    $if($stricmp(%MOOD%,diurnal),$rgb(255,255,0,255,255,0)'[D]'$reset_format())
+Style script:
+  Use custom style script: false
+  text: |-
+Sorting script:
+  Use custom sorting script: true
+  text: |-
+    %MOOD%

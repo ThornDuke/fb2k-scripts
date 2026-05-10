@@ -1,0 +1,12 @@
+# Playlist definition
+---
+Name: IPod
+Query pattern: |-
+  ```fb2k
+  rating GREATER 2.5
+  ```
+Sort pattern: |-
+  ```fb2k
+  $crc32(%album%)|[%discnumber%]|%tracknumber%
+  ```
+Force sorted: true

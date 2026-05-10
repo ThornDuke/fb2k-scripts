@@ -1,0 +1,12 @@
+# Playlist definition
+---
+Name: HRLP
+Query pattern: |-
+  ```fb2k
+  %last_played% DURING LAST 2 WEEKS
+  ```
+Sort pattern: |-
+  ```fb2k
+  %last_played%
+  ```
+Force sorted: true

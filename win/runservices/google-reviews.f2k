@@ -35,10 +35,16 @@ $puts(
 // quali viene effettuata la ricerca
 $puts(
   magazines,
-  +site:www.radioaktiv.it+OR+site:www.sentireascoltare.com+OR
-  +site:www.ondarock.it+OR+site:www.impattosonoro.it+OR
-  +site:www.rootsworld.com+OR+site:pitchfork.com+OR
-  +site:worldmusiccentral.org+OR+site:afropop.org
+  +site:www.radioaktiv.it
+  +OR+site:www.sentireascoltare.com
+  +OR+site:www.ondarock.it
+  +OR+site:www.impattosonoro.it
+  +OR+site:www.rootsworld.com
+  +OR+site:pitchfork.com
+  +OR+site:worldmusiccentral.org
+  +OR+site:afropop.org
+  +OR+site:www.giornaledellamusica.it
+  +OR+site:www.scaruffi.com
 )
 // `num=20` limita a 20 il numero dei risultati per pagina
 $puts(
