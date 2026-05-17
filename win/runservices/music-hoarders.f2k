@@ -11,7 +11,7 @@
 // Label: Music Hoarders Cover artist + album
 //
 // Author:  Thorn Duke
-// Version: 1.0.3
+// Version: 1.0.4
 // Date:    2025-09-23
 //
 //endsection> frontmatter ============================================
@@ -39,7 +39,7 @@ $puts(
 )
 $puts(
   sources,
-  'amazonmusic,applemusic,bugs,flo,itunes,kkbox,linemusic,qobuz,tidal'
+  'amazonmusic,applemusic,bandcamp,deezer,itunes,kkbox,qobuz,spotify,tidal'
 )
 $puts(
   country,

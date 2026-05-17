@@ -3,10 +3,10 @@
 Name: IPod
 Query pattern: |-
   ```fb2k
-  rating GREATER 2.5
+  IPOD IS yes
   ```
 Sort pattern: |-
   ```fb2k
-  $crc32(%album%)|[%discnumber%]|%tracknumber%
+  $crc32(%album%)[|%discnumber%]|%tracknumber%
   ```
 Force sorted: true

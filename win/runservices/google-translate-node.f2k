@@ -28,7 +28,7 @@ $puts(
 )
 $puts(
   script,
-  C:\Users\User\Documents\FB2K\fb2kscripts\interpreted\gtc.js
+  C:\Users\user\Documents\Repositories\fb2k-scripts\interpreted\gtc.js
 )
 //endsection> atoms
 //section> variables
@@ -67,10 +67,10 @@ $puts(
 $puts(
   LYRICS,
   $if3(
-    $meta(LYRICS),
-    $meta(SYNCEDLYRICS),
     $meta(UNSYNCEDLYRICS),
     $meta(UNSYNCED LYRICS),
+    $meta(LYRICS),
+    $meta(SYNCEDLYRICS),
     $get(null)
   )
 )

@@ -1,0 +1,157 @@
+$puts(
+roman_font,
+$set_format(
+font-family: Courier New;
+font-size: 9;
+font-weight: 400;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(
+small_font,
+$set_format(
+font-family: Courier New;
+font-size: 7;
+font-weight: 400;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(
+bold_font,
+$set_format(
+font-family: Courier New;
+font-size: 9.5;
+font-weight: 700;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(default_col,$rgb(255,255,255))
+$puts(tag_col,$rgb(0,255,0))
+$puts(value_col,$rgb(155,255,0))
+$puts(start_tag,$get(roman_font)$get(tag_col))
+$puts(end_tag,$reset_format()$get(default_col))
+$puts(start_value,$get(bold_font)$get(value_col))
+$puts(end_value,$reset_format()$get(default_col))
+$puts(start_emoji,$get(small_font)$get(default_col))
+$puts(end_emoji,$get(roman_font)$get(default_col))
+
+// artist
+$puts(tag_name,artist)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))[%album artist%]$get(end_value)
+
+$crlf()
+
+// feat
+$if(
+%track artist%,
+$puts(tag_name,feat)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)
+$ifequal(
+$strchr($meta_sep(artist,§),§),0,
+$tab($get(tab_len))%track artist%,
+$tab($get(tab_len))$meta_sep(artist,$crlf()$tab(2))
+)
+$get(end_value)
+$crlf(),
+$get(null)
+)
+
+// track title
+$puts(tag_name,track)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))[%title%]$get(end_value)
+
+$crlf()
+
+// album title
+$puts(tag_name,album)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))[%album%]$get(end_value)
+
+$crlf()
+
+// release: date, label
+$puts(label,$if3(%label%,%publisher%,%copyright%,$get(null)))
+$puts(tag_name,release)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)
+$tab($get(tab_len))
+$if($meta(date),$year(%date%),$get(start_emoji)❓$get(end_emoji))
+$get(end_value)
+$get(start_value)
+', '
+$if2($get(label),$get(start_emoji)❓$get(end_emoji))
+$get(end_value)
+
+$crlf()
+
+// genre
+$puts(tag_name,genre)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)
+$ifequal(
+$strchr($meta_sep(genre,§),§),0,
+$tab($get(tab_len))%genre%,
+$tab($get(tab_len))$meta_sep(genre,$crlf()$tab(2))
+)
+$get(end_value)
+
+$crlf()
+
+// style
+$puts(tag_name,style)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)
+$ifequal(
+$strchr($meta_sep(style,§),§),0,
+$tab($get(tab_len))%style%,
+$tab($get(tab_len))$meta_sep(style,$crlf()$tab(2))
+)
+$get(end_value)
+
+$crlf()
+
+// checked
+$puts(tag_name,checked)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))
+$if(
+%checked%,
+$if(
+$stricmp(%checked%,y),
+$get(start_emoji)🟢$get(end_emoji),
+$get(start_emoji)🔴$get(end_emoji)
+),
+$get(start_emoji)⚪$get(end_emoji)
+)
+$get(end_value)
+
+$crlf()
+
+// rating
+$puts(tag_name,my rating)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))
+$if2($meta(rating),$get(start_emoji)❓$get(end_emoji))
+$get(end_value)
+
+$crlf()
+
+// amg rating
+$puts(tag_name,AMG rating)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))
+$if2($meta(amg rating),$get(start_emoji)❓$get(end_emoji))
+$get(end_value)
