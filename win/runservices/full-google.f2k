@@ -1,12 +1,12 @@
 //section> frontmatter ===============================================
 //
-//   Run services: Google Search
+//   Run services: Google Review Search
 // 
-// Restituisce la stringa da passare alla API di Google per
-// effettuare una ricerca per <Album Artist>+<Album>
-// 
-// Keybinding: Shift+Ctrl+C
-// Label: Google Artist + Album
+// Effettua una ricerca per <Album Artist>+<Album> su Google
+// limitata ai siti di alcune riviste musicali
+//
+// Keybinding: Shift+Ctrl+R
+// Label: Google Reviews Artist + Album
 //
 // Author:   Thorn Duke
 // Version:  1.0.2
@@ -31,12 +31,29 @@ $puts(
   service,
   'http://www.google.com/search?q='
 )
+// `magazines` contiene l'elenco dei siti delle riviste musicali nei
+// quali viene effettuata la ricerca
+$puts(
+  magazines,
+  +-site:www.youtube.com
+  +-site:www.amazon.it
+  +-site:www.amazon.com
+  +-site:music.apple.com
+  +-site:www.last.fm
+  +-site:www.deezer.com
+  +-site:www.facebook.com
+  +-site:audiomack.com
+  +-site:tidal.com
+  +-site:www.beatport.com
+)
+// `num=20` limita a 20 il numero dei risultati per pagina
 $puts(
   parameters,
   '&ie=utf-8'
+  '&num=20'
 )
 //endsection> atoms
-//section> tags normalizing
+//section> tag normalizing
 // -------------------------------------------------------------------
 //
 //   Normalizzazione dei campi
@@ -44,14 +61,17 @@ $puts(
 // -------------------------------------------------------------------
 $puts(
   albumartist,
-  $stripprefix($trim(%album artist%))
+  $stripprefix(
+    $trim(%album artist%),
+    'The'
+  )
 )
 $puts(
   album,
   $trim(%album%)
 )
-//endsection> tags normalizing
-//section> chars sanitizing
+//endsection> tag normalizing
+//section> char sanitizing
 // -------------------------------------------------------------------
 //
 //   Igienizzazione dei caratteri
@@ -82,12 +102,12 @@ $puts(
     $get(plus)
   )
 )
-//endsection> chars sanitizing
+//endsection> char sanitizing
 //section> line building
 // -------------------------------------------------------------------
 //
 //   Costruzione della linea
 //
 // -------------------------------------------------------------------
-$get(service)$get(joinedTarget)$get(parameters)
+$get(service)$get(joinedTarget)$get(magazines)$get(parameters)
 //endsection> line building

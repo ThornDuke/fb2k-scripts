@@ -12,10 +12,17 @@ Options:
     Value: 
 Display script:
   text: |-
-    $if($stricmp(%MOOD%,nocturnal),$rgb(0,0,255,0,0,255)'[N]'$reset_format())
-    $if($stricmp(%MOOD%,vespertine),$rgb(0,255,255,0,255,255)'[V]'$reset_format())
-    $if($stricmp(%MOOD%,matutinal),$rgb(255,128,0,255,128,0)'[M]'$reset_format())
-    $if($stricmp(%MOOD%,diurnal),$rgb(255,255,0,255,255,0)'[D]'$reset_format())
+    $if(%mood%,
+    $puts(spc,' ')
+    $puts(comma,',')
+    $replace(
+    %mood%,
+    $get(comma),$get(spc),
+    nocturnal,$rgb(128,64,255,128,64,255)'[N]'$reset_format(),
+    vespertine,$rgb(0,255,255,0,255,255)'[V]'$reset_format(),
+    matutinal,$rgb(255,128,0,255,128,0)'[M]'$reset_format(),
+    diurnal,$rgb(255,255,0,255,255,0)'[D]'$reset_format()
+    ))
 Style script:
   Use custom style script: false
   text: |-

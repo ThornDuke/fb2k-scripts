@@ -1,0 +1,90 @@
+//section> frontmatter ===============================================
+//
+//   Main Window
+// 
+// The title of the main window during playback in ColumnsUI
+//
+// Author:   Thorn Duke
+// Version:  2.0.0
+// Date:     2026-05-24
+//
+//endsection> frontmatter ============================================
+//section> atoms
+// -------------------------------------------------------------------
+//
+//   Elementi Atomici
+//
+// -------------------------------------------------------------------
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  cursor_char,
+  ●
+)
+$puts(
+  bar_char,
+  ━
+)
+$puts(
+  bar_len,
+  45
+)
+//endsection> atoms
+//section> molecules
+// -------------------------------------------------------------------
+//
+//   Elementi Molecolari
+//
+// -------------------------------------------------------------------
+$puts(
+  playbacktime,
+  %playback_time%
+)
+$puts(
+  length,
+  %length%
+)
+$puts(
+  playbacktimesecs,
+  %playback_time_seconds%
+)
+$puts(
+  lengthsecs,
+  %length_seconds%
+)
+//endsection> molecules
+//section> organs
+// -------------------------------------------------------------------
+//
+//   Organi
+//
+// -------------------------------------------------------------------
+$puts(
+  start,
+  $get(playbacktime)$get(spc)
+)
+$puts(
+  end,
+  $get(spc)$get(length)
+)
+$puts(
+  progressbar,
+  $progress(
+    $get(playbacktimesecs),
+    $get(lengthsecs),
+    $get(bar_len),
+    $get(cursor_char),
+    $get(bar_char)
+  )  
+)
+//endsection> organs
+//section> body
+// -------------------------------------------------------------------
+//
+//   Linea finale
+//
+// -------------------------------------------------------------------
+$get(start)$get(progressbar)$get(end)
+//endsection> body

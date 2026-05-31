@@ -28,13 +28,15 @@ font-style: normal;)
 $puts(default_col,$rgb(255,255,255))
 $puts(tag_col,$rgb(0,255,0))
 $puts(value_col,$rgb(155,255,0))
+$puts(square_bracket_col,$rgb(255,255,0))
+$puts(red_rating_col,$rgb(255, 125, 0))
 $puts(start_tag,$get(roman_font)$get(tag_col))
 $puts(end_tag,$reset_format()$get(default_col))
 $puts(start_value,$get(bold_font)$get(value_col))
 $puts(end_value,$reset_format()$get(default_col))
 $puts(start_emoji,$get(small_font)$get(default_col))
 $puts(end_emoji,$get(roman_font)$get(default_col))
-
+$puts(spc,' ')
 // artist
 $puts(tag_name,artist)
 $puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
@@ -139,11 +141,17 @@ $get(end_value)
 $crlf()
 
 // rating
+$puts(left_square_bracket,'⟬')
+$puts(right_square_bracket,'⟭')
 $puts(tag_name,my rating)
 $puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
 $get(start_tag)$get(tag_name):$get(end_tag)
 $get(start_value)$tab($get(tab_len))
+$if(
+$meta(red rating),
+$get(square_bracket_col)$get(left_square_bracket)$get(default_col)$get(spc)$get(red_rating_col)$meta(red rating)$get(default_col)$get(spc)$get(square_bracket_col)$get(right_square_bracket)$get(default_col),
 $if2($meta(rating),$get(start_emoji)❓$get(end_emoji))
+)
 $get(end_value)
 
 $crlf()

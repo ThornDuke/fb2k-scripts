@@ -1,8 +1,8 @@
 # Playlist definition
 ---
-Name: HRLP
+Name: M_Diurnal
 Query pattern: |-
-  %last_played% DURING LAST 2 WEEKS
+  mood IS diurnal
 Sort pattern: |-
-  %last_played%
+  %play_count%|$add($crc32(%title%),$rand())
 Force sorted: true

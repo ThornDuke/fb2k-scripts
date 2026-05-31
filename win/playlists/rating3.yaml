@@ -2,11 +2,7 @@
 ---
 Name: High Rate
 Query pattern: |-
-  ```fb2k
   rating GREATER 2.5
-  ```
 Sort pattern: |-
-  ```fb2k
   $year($if3(%original release date%,%originalyear%,%original date%,%date%))|%album%|[%discnumber%]|%tracknumber%
-  ```
 Force sorted: true

@@ -1,0 +1,73 @@
+$puts(
+roman_font,
+$set_format(
+font-family: Courier New;
+font-size: 9;
+font-weight: 400;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(
+small_font,
+$set_format(
+font-family: Courier New;
+font-size: 7;
+font-weight: 400;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(
+bold_font,
+$set_format(
+font-family: Courier New;
+font-size: 10;
+font-weight: 700;
+font-stretch: 5;
+font-style: normal;)
+)
+$puts(col_default,$rgb(255,255,255))
+$puts(col_vermillion,$rgb(204,71,75))
+$puts(col_gold,$rgb(255,215,0))
+$puts(
+cursor_col,
+$get(col_vermillion)
+)
+$puts(
+cursor_char,
+●
+)
+$puts(
+bar_col,
+$get(col_vermillion)
+)
+$puts(
+bar_char,
+━
+)
+$puts(
+bar_len,
+35
+)
+$puts(
+playback_time_col,
+$get(col_vermillion)
+)
+$puts(
+lenght_col,
+$get(col_vermillion)
+)
+//
+// TODO
+// Gestire il caso %isplaying%
+// 
+$get(bold_font)
+$get(col_gold)
+%playback_time%' '
+$progress(
+%playback_time_seconds%,
+%length_seconds%,
+$get(bar_len),
+$get(cursor_char),
+$get(bar_char)
+)
+' '%length%

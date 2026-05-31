@@ -2,11 +2,7 @@
 ---
 Name: IPod
 Query pattern: |-
-  ```fb2k
   IPOD IS yes
-  ```
 Sort pattern: |-
-  ```fb2k
-  $crc32(%album%)[|%discnumber%]|%tracknumber%
-  ```
+  $crc32(%album%)[|$crc32(%album artist%)][|%discnumber%]|%tracknumber%
 Force sorted: true

@@ -1,0 +1,8 @@
+# Playlist definition
+---
+Name: M_Matutinal
+Query pattern: |-
+  mood IS matutinal
+Sort pattern: |-
+  %play_count%|$add($crc32(%title%),$rand())
+Force sorted: true

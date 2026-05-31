@@ -65,5 +65,21 @@
       ")$0"
     ],
     "description": "Funzione PUTS"
+  },
+  "playlist definition pattern": {
+    "prefix": "playlist definition",
+    "body": [
+      "# Playlist definition",
+      "---",
+      "Name: ${1:name}",
+      "Query pattern: |-",
+      "  ${2:fb2k query text}",
+      "Sort pattern: |-",
+      "  ${3:fb2k sort text}",
+      "Force sorted: ${4|true,false|}",
+    ],
+    "description": "Crea il pattern per la definizione di una playlist",
+    "scope": "yaml",
+    "$0"
   }
 }
