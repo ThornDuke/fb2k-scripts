@@ -1,0 +1,8 @@
+# Playlist definition
+---
+Name: !AMG
+Query pattern: |-
+  amg rating MISSING
+Sort pattern: |-
+  $year($if3(%original release date%,%originalyear%,%original date%,%date%))|$crc32(%album%)[|%discnumber%]|%tracknumber%
+Force sorted: true

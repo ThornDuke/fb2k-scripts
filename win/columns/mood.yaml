@@ -12,21 +12,35 @@ Options:
     Value: 
 Display script:
   text: |-
-    $if(%mood%,
+    $if(
+    %mood%,
     $puts(spc,' ')
     $puts(comma,',')
+    $puts(nocturnal_name,nocturnal)
+    $puts(nocturnal_logo,'[N]')
+    $puts(vespertine_name,vespertine)
+    $puts(vespertine_logo,'[V]')
+    $puts(matutinal_name,matutinal)
+    $puts(matutinal_logo,'[M]')
+    $puts(diurnal_name,diurnal)
+    $puts(diurnal_logo,'[D]')
+    $puts(col_LightViolet,$rgb(128,64,255,128,64,255))
+    $puts(col_Cyan,$rgb(0,255,255,0,255,255))
+    $puts(col_DarkOrange,$rgb(255,128,0,255,128,0))
+    $puts(col_Yellow,$rgb(255,255,0,255,255,0))
     $replace(
     %mood%,
     $get(comma),$get(spc),
-    nocturnal,$rgb(128,64,255,128,64,255)'[N]'$reset_format(),
-    vespertine,$rgb(0,255,255,0,255,255)'[V]'$reset_format(),
-    matutinal,$rgb(255,128,0,255,128,0)'[M]'$reset_format(),
-    diurnal,$rgb(255,255,0,255,255,0)'[D]'$reset_format()
-    ))
+    $get(nocturnal_name),$get(col_LightViolet)$get(nocturnal_logo)$reset_format(),
+    $get(vespertine_name),$get(col_Cyan)$get(vespertine_logo)$reset_format(),
+    $get(matutinal_name),$get(col_DarkOrange)$get(matutinal_logo)$reset_format(),
+    $get(diurnal_name),$get(col_Yellow)$get(diurnal_logo)$reset_format()
+    )
+    )
 Style script:
   Use custom style script: false
   text: |-
 Sorting script:
   Use custom sorting script: true
   text: |-
-    %MOOD%
+    %mood%

@@ -1,0 +1,46 @@
+# Ecco l'elenco completo dei combinatori di blocco in YAML (detti indicatori di stile e di estrazione), divisi per funzione:
+# 1. Gli Stili Principali (Come gestire i ritorni a capo interni)
+#
+# * | (Literal Style): Mantiene intatti tutti i ritorni a capo interni esattamente come li hai scritti.
+# * > (Folded Style): Sostituisce i ritorni a capo interni con uno spazio, unendo il testo in un'unica riga.
+#
+# ## 2. Gli Indicatori di Estrazione (Come gestire i ritorni a capo finali)
+# Ogni stile principale (| o >) può essere combinato con uno di questi tre modificatori finali:
+#
+# * - (Strip): Rimuove tutti i ritorni a capo alla fine del blocco di testo.
+# * Nessun simbolo (Clip): Conserva esattamente un solo ritorno a capo alla fine (comportamento predefinito).
+# * + (Keep): Mantiene tutti i ritorni a capo finali e le righe vuote scritte in fondo al blocco.
+#
+# ------------------------------
+# ## Tabella Riassuntiva Combinata
+#
+# | Sintassi | Tipo di blocco | Gestione ritorni a capo finali |
+# |---|---|---|
+# | **` | `** | Testo a capo (Letterale) |
+# | **` | -`** | Testo a capo (Letterale) |
+# | **` | +`** | Testo a capo (Letterale) |
+# | > | Riga unica (Ripiegato) | Lascia un solo a capo finale |
+# | >- | Riga unica (Ripiegato) | Rimuove tutti gli a capo finali |
+# | >+ | Riga unica (Ripiegato) | Tiene tutti gli a capo finali |
+#
+# Se desideri vedere degli esempi pratici comparati per capire visivamente la differenza nel risultato finale, o se vuoi sapere come gestire i rientri degli spazi (indentazione) con questi blocchi, fammelo sapere!
+#
+Display:
+  Autocomplete fields: >-
+    ARTIST+ALBUM
+    ARTIST+COMPOSER+PERFORMER;GENRE;STYLE;CHECKED;IPOD;LABEL;MOOD;PLAYLIST;PUBLISHER
+  Properties dialog:
+    Auto-append suggested values: true
+    Field name suggestions: >-
+      ipod,checked,AMG
+      RATING,style,mood,rating,artist,title,album,genre,tracknumber,composer,date,comment,performer,album
+      artist,discnumber,totaltracks,totaldiscs
+    Multiline fields: COMMENT;LYRICS;BIOGRAPHY;UNSYNCED LYRICS;UNSYNCEDLYRICS
+    Multivalue fields: ARTIST;ALBUM ARTIST;PRODUCER;COMPOSER;PERFORMER;GENRE;STYLE;MOOD
+    Standard fields: >-
+      Artist Name=ARTIST;Track Title=TITLE;Album
+      Title=ALBUM;Date=DATE;Genre=GENRE;Style=STYLE;Composer=COMPOSER;Performer=PERFORMER;Album
+      Artist=ALBUM ARTIST;Track Number=TRACKNUMBER;Total Tracks=TOTALTRACKS;Disc
+      Number=DISCNUMBER;Total
+      Discs=TOTALDISCS;Comment=COMMENT;Label=LABEL;Rating=RATING;Checked=CHECKED;AMG
+      Rating=AMG RATING;IPod=IPOD;Original Year=ORIGINALYEAR;

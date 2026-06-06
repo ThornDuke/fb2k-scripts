@@ -1,0 +1,99 @@
+// TODO
+// generare una stringa del tipo:
+// 
+// Disc 1 of 2 | Track 3 of 10 | Time 0.31 of 6.22
+//
+$puts(
+  true,
+  'true'
+)
+$puts(
+  false,
+  $get(null)
+)
+$puts(
+  spc,
+  ' '
+)
+$puts(
+  pipe,
+  '|'
+)
+$puts(
+  divider,
+  $get(spc)$get(spc)$get(pipe)$get(spc)$get(spc)
+)
+// --------------------------------------------
+$puts(
+  isPlaying,
+  $if(
+    %isplaying%,
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  hasDiscnumber,
+  $if(
+    %discnumber%,
+    $get(true%),
+    $get(false)
+  )
+)
+$puts(
+  hasTotaldiscs,
+  $if(
+    %totaldiscs%,
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  hasTracknumber,
+  $if(
+    %track number%,
+    $get(true),
+    $get(false)
+  )
+)
+$puts(
+  hasTotaltracks,
+  $if(
+    %totaltracks%,
+    $get(true),
+    $get(false)
+  )
+)
+// --------------------------------------------
+$puts(
+  disc_block,
+  $if(
+    $and(
+      $get(hasDiscnumber),
+      $get(hasTotaldiscs)
+    ),
+    Disc %discnumber% of %totaldiscs%$get(divider),
+    $get(null)
+  )
+)
+$puts(
+  track_block,
+  $if(
+    $and(
+      $get(hasTracknumber),
+      $get(hasTotaltracks)
+    ),
+    Track %track number% of %totaltracks%$get(divider),
+    $get(null)
+  )
+)
+$puts(
+  time_block,
+  Time %playback_time% of %length%
+)
+// --------------------------------------------
+$if(
+  $get(isPlaying),
+  $get(disc_block)$get(track_block)$get(time_block),
+  Foobar %_foobar2000_version%
+)

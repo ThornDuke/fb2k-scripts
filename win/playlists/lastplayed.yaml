@@ -1,6 +1,6 @@
 # Playlist definition
 ---
-Name: HRLP
+Name: Last Played
 Query pattern: |-
   %last_played% DURING LAST 2 WEEKS
 Sort pattern: |-
