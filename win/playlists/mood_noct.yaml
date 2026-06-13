@@ -2,7 +2,7 @@
 ---
 Name: M_Noct
 Query pattern: |-
-  mood IS nocturnal
+  mood HAS nocturnal
 Sort pattern: |-
-  %play_count%|$add($crc32(%title%),$rand())
+  %play_count%|$rand()
 Force sorted: true

@@ -25,18 +25,18 @@ font-weight: 700;
 font-stretch: 5;
 font-style: normal;)
 )
-$puts(default_col,$rgb(255,255,255))
-$puts(tag_col,$rgb(0,255,0))
-$puts(value_col,$rgb(155,255,0))
-$puts(square_bracket_col,$rgb(255,255,0))
-$puts(tracktitle_col,$rgb(255, 159, 0))
-$puts(red_rating_col,$rgb(255, 125, 0))
-$puts(start_tag,$get(roman_font)$get(tag_col))
-$puts(end_tag,$reset_format()$get(default_col))
-$puts(start_value,$get(bold_font)$get(value_col))
-$puts(end_value,$reset_format()$get(default_col))
-$puts(start_emoji,$get(small_font)$get(default_col))
-$puts(end_emoji,$get(roman_font)$get(default_col))
+$puts(default_color,$rgb(255,255,255))
+$puts(tag_color,$rgb(0,255,0))
+$puts(value_color,$rgb(155,255,0))
+$puts(square_bracket_color,$rgb(255,255,0))
+$puts(tracktitle_color,$rgb(255, 159, 0))
+$puts(red_rating_color,$rgb(255, 125, 0))
+$puts(start_tag,$get(roman_font)$get(tag_color))
+$puts(end_tag,$reset_format()$get(default_color))
+$puts(start_value,$get(bold_font)$get(value_color))
+$puts(end_value,$reset_format()$get(default_color))
+$puts(start_emoji,$get(small_font)$get(default_color))
+$puts(end_emoji,$get(roman_font)$get(default_color))
 $puts(spc,' ')
 // artist
 $puts(tag_name,artist)
@@ -67,7 +67,7 @@ $get(null)
 $puts(tag_name,track)
 $puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
 $get(start_tag)$get(tag_name):$get(end_tag)
-$get(start_value)$tab($get(tab_len))$get(tracktitle_col)[%title%]$get(default_col)$get(end_value)
+$get(start_value)$tab($get(tab_len))$get(tracktitle_color)[%title%]$get(default_color)$get(end_value)
 
 $crlf()
 
@@ -150,7 +150,7 @@ $get(start_tag)$get(tag_name):$get(end_tag)
 $get(start_value)$tab($get(tab_len))
 $if(
 $meta(red rating),
-$get(square_bracket_col)$get(left_square_bracket)$get(default_col)$get(spc)$get(red_rating_col)$meta(red rating)$get(default_col)$get(spc)$get(square_bracket_col)$get(right_square_bracket)$get(default_col),
+$get(square_bracket_color)$get(left_square_bracket)$get(default_color)$get(spc)$get(red_rating_color)$meta(red rating)$get(default_color)$get(spc)$get(square_bracket_color)$get(right_square_bracket)$get(default_color),
 $if2($meta(rating),$get(start_emoji)❓$get(end_emoji))
 )
 $get(end_value)
@@ -164,3 +164,42 @@ $get(start_tag)$get(tag_name):$get(end_tag)
 $get(start_value)$tab($get(tab_len))
 $if2($meta(amg rating),$get(start_emoji)❓$get(end_emoji))
 $get(end_value)
+
+// mood
+$puts(
+mood_line,
+$puts(tag_name,mood)
+$puts(tab_len,$iflonger($get(tag_name)': ',7,1,2))
+$get(start_tag)$get(tag_name):$get(end_tag)
+$get(start_value)$tab($get(tab_len))
+$puts(spc,' ')
+$puts(comma,',')
+$puts(nocturnal_name,nocturnal)
+$puts(nocturnal_logo,'[N]')
+$puts(vespertine_name,vespertine)
+$puts(vespertine_logo,'[V]')
+$puts(matutinal_name,matutinal)
+$puts(matutinal_logo,'[M]')
+$puts(diurnal_name,diurnal)
+$puts(diurnal_logo,'[D]')
+$puts(col_LightViolet,$rgb(128,64,255,128,64,255))
+$puts(col_Cyan,$rgb(0,255,255,0,255,255))
+$puts(col_DarkOrange,$rgb(255,128,0,255,128,0))
+$puts(col_Yellow,$rgb(255,255,0,255,255,0))
+$replace(
+%mood%,
+$get(comma),$get(spc),
+$get(nocturnal_name),$get(col_LightViolet)$get(nocturnal_logo)$reset_format(),
+$get(vespertine_name),$get(col_Cyan)$get(vespertine_logo)$reset_format(),
+$get(matutinal_name),$get(col_DarkOrange)$get(matutinal_logo)$reset_format(),
+$get(diurnal_name),$get(col_Yellow)$get(diurnal_logo)$reset_format()
+$get(end_value)
+)
+)
+
+$if(
+%mood%,
+$crlf()
+$get(mood_line),
+$get(null)
+)

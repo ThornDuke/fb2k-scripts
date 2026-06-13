@@ -2,7 +2,7 @@
 ---
 Name: M_Vesp
 Query pattern: |-
-  mood IS vespertine
+  mood HAS vespertine
 Sort pattern: |-
-  %play_count%|$add($crc32(%title%),$rand())
+  %play_count%|$rand()
 Force sorted: true

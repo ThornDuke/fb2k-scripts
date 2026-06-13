@@ -2,7 +2,7 @@
 ---
 Name: M_Matutinal
 Query pattern: |-
-  mood IS matutinal
+  mood HAS matutinal
 Sort pattern: |-
-  %play_count%|$add($crc32(%title%),$rand())
+  %play_count%|$rand()
 Force sorted: true

@@ -2,7 +2,7 @@
 ---
 Name: M_Diurnal
 Query pattern: |-
-  mood IS diurnal
+  mood HAS diurnal
 Sort pattern: |-
-  %play_count%|$add($crc32(%title%),$rand())
+  %play_count%|$rand()
 Force sorted: true
