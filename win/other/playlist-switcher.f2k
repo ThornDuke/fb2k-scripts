@@ -1,0 +1,13 @@
+%title%
+
+$tab(3)
+
+$if(%is_playing%,🔉)
+
+$tab()
+
+%size%
+
+$tab(2)
+
+%filesize%

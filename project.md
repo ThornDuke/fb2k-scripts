@@ -2,7 +2,7 @@
 
 Prepara il progetto per un dispenser di miele.
 
-Il progetto deve essere costituito da una analisi scritta e da due disegni 2D quotati da esportare come codice python matplotlib: 
+Il progetto deve essere costituito da una analisi scritta e da due disegni 2D quotati da esportare come codice python matplotlib:
 
 il primo disegno deve riguardare il contenitore;
 
@@ -29,8 +29,9 @@ Il dispenser deve avere le seguenti caratteristiche:
    1. Deve avere un coperchio con beccuccio.
    2. Il coperchio deve essere a vite, in modo da poter essere applicato al contenitore in modo semplice e stabile;
    3. Il beccuccio deve essere a sua volta sigillabile, con una copertura imperniata al coperchio, per non far fuoriuscire il miele accidentalmente;
+      1. L'imperniatura tra coperchio e copertura del beccuccio deve essere strutturata in modo da poter permettere un numero virtualmente infinito di cicli di apertura-chiusura senza che la forma o la struttura del coperchio ne risenta;
    4. Il coperchio deve avere una svasatura conica in corrispondenza del beccuccio, in modo che il miele, anche quando è poco e sta per finire, venga accumulato per gravità in corrispondenza del beccuccio; in questo modo il miele viene espulso fino all'ultima goccia.
-   5. Il sistema coperchio-beccuccio deve avere una sommità piatta e ampia, in modo da poter riporre il dispenser a testa in giù.
+   5. Il sistema *coperchio-beccuccio-copertura del beccuccio* deve avere una sommità piatta e ampia, in modo da poter riporre il dispenser a testa in giù.
 
 Gemini: <https://gemini.google.com/app/a52e084213beb87a>
 

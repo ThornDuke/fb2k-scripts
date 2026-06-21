@@ -37,7 +37,7 @@ $puts(
 )
 $puts(
   typePar,
-  '&type=all'
+  '&type=master'
 )
 //endsection> atoms
 //section> tags normalizing
